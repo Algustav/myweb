@@ -1,0 +1,22 @@
+---
+const { post } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}).format(post.data.pubDate);
+const slug = post.id.replace(/\.(md|mdx)$/, '');
+---
+
+<article class="post-card">
+  <a href={`/blog/${slug}/`}>
+    <span>{formattedDate}</span>
+    <h2>{post.data.title}</h2>
+    <p>{post.data.description}</p>
+    {post.data.tags.length > 0 && (
+      <ul>
+        {post.data.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    )}
+  </a>
+</article>

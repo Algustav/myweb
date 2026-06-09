@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Algustav - 个人博客">
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Personal notes / web / product / life</p>
+      <h1>把想法写成可被再次找到的东西。</h1>
+      <p>
+        这里可以放你的长期笔记、项目复盘、技术文章和个人观察。内容用 Markdown
+        写，提交到 GitHub 后由 Cloudflare Pages 自动发布。
+      </p>
+    </div>
+  </section>
+
+  <h2 class="section-title">最新文章</h2>
+  <section class="post-list" aria-label="最新文章">
+    {posts.map((post) => <PostCard post={post} />)}
+  </section>
+</BaseLayout>
