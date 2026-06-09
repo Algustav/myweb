@@ -65,3 +65,40 @@ Node.js version: 24
 1. 在 `src/content/blog/` 新增 Markdown 文件。
 2. 提交并 push 到 GitHub。
 3. Cloudflare Pages 自动部署。
+
+## 6. 启用 Decap CMS 后台
+
+项目已经包含后台入口：
+
+```text
+https://myweb.ganlei.com/admin/
+```
+
+Decap CMS 使用 GitHub OAuth 登录。你需要先创建一个 GitHub OAuth App：
+
+```text
+GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App
+```
+
+填写：
+
+```text
+Application name: myweb Decap CMS
+Homepage URL: https://myweb.ganlei.com
+Authorization callback URL: https://myweb.ganlei.com/callback
+```
+
+创建后，把 GitHub 给你的 Client ID 和 Client Secret 加到 Cloudflare Pages：
+
+```text
+Cloudflare Pages -> myweb -> Settings -> Environment variables
+```
+
+添加生产环境变量：
+
+```text
+GITHUB_CLIENT_ID=你的 Client ID
+GITHUB_CLIENT_SECRET=你的 Client Secret
+```
+
+保存后重新部署。之后访问 `/admin/`，用拥有 `Algustav/myweb` 写入权限的 GitHub 账号登录，就可以新建和编辑文章。

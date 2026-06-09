@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: Algustav/myweb
+  branch: main
+  base_url: https://myweb.ganlei.com
+  auth_endpoint: auth
+
+site_url: https://myweb.ganlei.com
+display_url: https://myweb.ganlei.com
+logo_url: /favicon.svg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+publish_mode: simple
+
+collections:
+  - name: blog
+    label: 博客文章
+    label_singular: 文章
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{title}} - {{pubDate}}"
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+      - label: 摘要
+        name: description
+        widget: text
+      - label: 发布日期
+        name: pubDate
+        widget: date
+        format: YYYY-MM-DD
+      - label: 标签
+        name: tags
+        widget: list
+        required: false
+        default: []
+        field:
+          label: 标签
+          name: tag
+          widget: string
+      - label: 正文
+        name: body
+        widget: markdown

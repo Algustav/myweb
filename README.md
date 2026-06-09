@@ -32,3 +32,18 @@ tags: ["随笔"]
 - Node.js version: `24`
 
 绑定域名前，建议把 `astro.config.mjs` 里的 `site` 改成你的正式域名。
+
+## 博客后台
+
+部署完成后访问：
+
+```text
+https://myweb.ganlei.com/admin/
+```
+
+后台使用 Decap CMS，会把文章保存到 `src/content/blog/`。登录发布需要在 GitHub 创建 OAuth App，并在 Cloudflare Pages 环境变量里配置：
+
+```text
+GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET
+```
