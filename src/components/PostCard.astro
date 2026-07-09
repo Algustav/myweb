@@ -1,10 +1,13 @@
 ---
+import { getPostDate } from '../lib/postDate';
+
 const { post } = Astro.props;
+const postDate = getPostDate(post);
 const formattedDate = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
-}).format(post.data.pubDate);
+}).format(postDate);
 const slug = post.id.replace(/\.(md|mdx)$/, '');
 ---
 
