@@ -50,7 +50,7 @@ const {
       const fontButton = document.querySelector('#font-toggle');
       const status = document.querySelector('#appearance-status');
       const getTheme = () => root.dataset.theme === 'dark' ? 'dark' : 'light';
-      const getFont = () => ['song', 'wenkai', 'sans'].includes(root.dataset.font || '') ? root.dataset.font : 'song';
+      const getFont = () => ['song', 'wenkai', 'sans'].includes(root.dataset.font || '') ? root.dataset.font : 'sans';
       const updateLabels = () => {
         const theme = getTheme();
         const font = getFont();
@@ -82,13 +82,13 @@ const {
 <style is:global>
   :root {
     --page: #fbfaf7;
-    --ink: #292724;
-    --muted: #77716a;
+    --ink: #201f1c;
+    --muted: #5f5a53;
     --line: #dfdbd3;
     --code-bg: #282623;
     --code-ink: #f7f5f0;
     --reading-width: 680px;
-    --reading-font: 'Songti SC', STSong, SimSun, serif;
+    --reading-font: Arial, Helvetica, sans-serif;
   }
 
   :root[data-theme='dark'] {
@@ -111,6 +111,8 @@ const {
     background: var(--page);
     color: var(--ink);
     font-family: var(--reading-font);
+    font-size: 18px;
+    font-weight: 400;
     line-height: 1.7;
   }
 
@@ -143,7 +145,7 @@ const {
   }
 
   .header-actions { display: flex; align-items: center; gap: 14px; }
-  nav { display: flex; gap: 16px; color: var(--muted); font-size: 0.9rem; }
+  nav { display: flex; gap: 16px; color: var(--muted); font-size: 0.95rem; }
   nav a { text-decoration: none; }
   nav a:hover { color: var(--ink); }
 
@@ -162,7 +164,7 @@ const {
   .kicker {
     margin: 0 0 12px;
     color: var(--muted);
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     letter-spacing: 0.12em;
   }
 
@@ -188,7 +190,7 @@ const {
   .entry { padding: 26px 0 28px; border-bottom: 1px solid var(--line); }
   .entry a { display: block; text-decoration: none; }
   .entry time,
-  .reading-header time { color: var(--muted); font-size: 0.88rem; }
+  .reading-header time { color: var(--muted); font-size: 0.94rem; }
 
   .entry h2 {
     margin: 8px 0 9px;
@@ -213,7 +215,7 @@ const {
   }
 
   .article-description { margin: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.75; }
-  .article-content { font-size: 1.125rem; line-height: 1.9; }
+  .article-content { font-size: 19px; line-height: 1.9; }
   .article-content h2 { margin-top: 2.1em; font-size: 1.55rem; line-height: 1.3; }
   .article-content code { background: color-mix(in srgb, var(--line) 48%, transparent); border-radius: 3px; padding: 2px 5px; font-size: 0.9em; }
 
