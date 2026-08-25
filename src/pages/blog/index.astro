@@ -1,12 +1,22 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostCard from '../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 import { getPostDate } from '../../lib/postDate';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => getPostDate(b).valueOf() - getPostDate(a).valueOf()
 );
+
+const formatDate = (date: Date) => {
+  const parts = new Intl.DateTimeFormat('en', {
+    timeZone: 'Asia/Hong_Kong',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(date);
+  const value = (type: string) => parts.find((part) => part.type === type)?.value;
+  return `${value('year')}/${value('month')}/${value('day')}`;
+};
 ---
 
 <BaseLayout title="文章 - Algustav">
@@ -14,7 +24,17 @@ const posts = (await getCollection('blog')).sort(
     <p class="kicker">归档</p>
     <h1>所有日记</h1>
   </section>
-  <section class="diary-feed" aria-label="文章列表">
-    {posts.map((post) => <PostCard post={post} />)}
+  <section class="archive-list" aria-label="文章列表">
+    {posts.map((post) => {
+      const slug = post.id.replace(/\.(md|mdx)$/, '');
+      return (
+        <p class="archive-entry">
+          <time datetime={getPostDate(post).toISOString()}>{formatDate(getPostDate(post))}</time>
+          <span aria-hidden="true"> - </span>
+          <a href={`/blog/${slug}/`}>{post.data.title}</a>
+          {post.data.tags.length > 0 && <><span aria-hidden="true"> - </span><span>{post.data.tags.join('、')}</span></>}
+        </p>
+      );
+    })}
   </section>
 </BaseLayout>

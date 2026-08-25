@@ -27,3 +27,12 @@ test('文章页支持 Kindle 阅读排版', async () => {
   assert.match(css, /padding-left:28px/);
   assert.match(css, /padding-right:28px/);
 });
+
+test('文章归档按日期输出紧凑条目', async () => {
+  const archive = await page('blog/index.html');
+
+  assert.match(archive, /class="archive-entry"/);
+  assert.match(archive, /2026\/08\/24/);
+  assert.match(archive, /付鹏 2024 年汇丰分享/);
+  assert.match(archive, /readlater/);
+});
