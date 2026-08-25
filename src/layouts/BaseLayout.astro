@@ -1,4 +1,7 @@
 ---
+import '@fontsource/lxgw-wenkai';
+import '@fontsource-variable/noto-sans-sc';
+
 const {
   title = 'Algustav 的日记本',
   description = '一个安静记录日常与想法的个人日记本。'
@@ -13,21 +16,65 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('diary-theme');
+        const font = localStorage.getItem('diary-font');
+        document.documentElement.dataset.theme = theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (font) document.documentElement.dataset.font = font;
+      } catch {}
+    </script>
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="/">Algustav 的日记本</a>
-      <nav aria-label="主导航">
-        <a href="/">首页</a>
-        <a href="/blog/">文章</a>
-        <a href="/about/">关于</a>
-      </nav>
+      <div class="header-actions">
+        <nav aria-label="主导航"><a href="/">首页</a><a href="/blog/">文章</a><a href="/about/">关于</a></nav>
+        <div class="appearance-controls" aria-label="阅读外观">
+          <button id="theme-toggle" class="icon-button" type="button" aria-label="切换深色模式" title="切换深色模式"><span aria-hidden="true">◐</span></button>
+          <button id="font-toggle" class="icon-button" type="button" aria-label="切换字体" title="切换字体"><span aria-hidden="true">Aa</span></button>
+        </div>
+      </div>
     </header>
     <main><slot /></main>
     <footer class="site-footer">
       <span>© {new Date().getFullYear()} Algustav</span>
       <span>慢慢写，慢慢读。</span>
     </footer>
+    <p id="appearance-status" class="sr-only" aria-live="polite"></p>
+    <script>
+      import { fontNames, nextFont, nextTheme, themeNames } from '../lib/appearance';
+      const root = document.documentElement;
+      const themeButton = document.querySelector('#theme-toggle');
+      const fontButton = document.querySelector('#font-toggle');
+      const status = document.querySelector('#appearance-status');
+      const getTheme = () => root.dataset.theme === 'dark' ? 'dark' : 'light';
+      const getFont = () => ['song', 'wenkai', 'sans'].includes(root.dataset.font || '') ? root.dataset.font : 'song';
+      const updateLabels = () => {
+        const theme = getTheme();
+        const font = getFont();
+        const nextThemeName = themeNames[nextTheme(theme)];
+        themeButton?.setAttribute('aria-label', `切换到${nextThemeName}`);
+        themeButton?.setAttribute('title', `切换到${nextThemeName}`);
+        fontButton?.setAttribute('aria-label', `切换字体，当前${fontNames[font]}`);
+        fontButton?.setAttribute('title', `当前字体：${fontNames[font]}`);
+      };
+      themeButton?.addEventListener('click', () => {
+        const theme = nextTheme(getTheme());
+        root.dataset.theme = theme;
+        localStorage.setItem('diary-theme', theme);
+        if (status) status.textContent = `已切换到${themeNames[theme]}`;
+        updateLabels();
+      });
+      fontButton?.addEventListener('click', () => {
+        const font = nextFont(getFont());
+        root.dataset.font = font;
+        localStorage.setItem('diary-font', font);
+        if (status) status.textContent = `已切换到${fontNames[font]}`;
+        updateLabels();
+      });
+      updateLabels();
+    </script>
   </body>
 </html>
 
@@ -37,8 +84,23 @@ const {
     --ink: #292724;
     --muted: #77716a;
     --line: #dfdbd3;
+    --code-bg: #282623;
+    --code-ink: #f7f5f0;
     --reading-width: 680px;
+    --reading-font: 'Songti SC', STSong, SimSun, serif;
   }
+
+  :root[data-theme='dark'] {
+    --page: #1b1a18;
+    --ink: #eeeae2;
+    --muted: #b8b1a7;
+    --line: #4a4640;
+    --code-bg: #11110f;
+    --code-ink: #f2eee7;
+  }
+
+  :root[data-font='wenkai'] { --reading-font: 'LXGW WenKai', 'Songti SC', STSong, serif; }
+  :root[data-font='sans'] { --reading-font: 'Noto Sans SC Variable', 'Noto Sans SC', 'Microsoft YaHei', sans-serif; }
 
   * { box-sizing: border-box; }
 
@@ -47,7 +109,7 @@ const {
     min-height: 100vh;
     background: var(--page);
     color: var(--ink);
-    font-family: 'Noto Serif SC', 'Songti SC', STSong, SimSun, serif;
+    font-family: var(--reading-font);
     line-height: 1.7;
   }
 
@@ -76,9 +138,19 @@ const {
     text-decoration: none;
   }
 
+  .header-actions { display: flex; align-items: center; gap: 14px; }
   nav { display: flex; gap: 16px; color: var(--muted); font-size: 0.9rem; }
   nav a { text-decoration: none; }
   nav a:hover { color: var(--ink); }
+
+  .appearance-controls { display: flex; gap: 6px; }
+  .icon-button {
+    display: grid; width: 30px; height: 30px; place-items: center; padding: 0;
+    border: 1px solid var(--line); border-radius: 3px; background: transparent;
+    color: var(--ink); font: inherit; font-size: 0.86rem; line-height: 1; cursor: pointer;
+  }
+  .icon-button:hover, .icon-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 
   .diary-intro,
   .archive-intro { padding: 68px 0 44px; }
@@ -135,12 +207,12 @@ const {
   .article-description { margin: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.75; }
   .article-content { font-size: 1.125rem; line-height: 1.9; }
   .article-content h2 { margin-top: 2.1em; font-size: 1.55rem; line-height: 1.3; }
-  .article-content code { background: #f0eee9; border-radius: 3px; padding: 2px 5px; font-size: 0.9em; }
+  .article-content code { background: color-mix(in srgb, var(--line) 48%, transparent); border-radius: 3px; padding: 2px 5px; font-size: 0.9em; }
 
   .article-content pre {
     overflow-x: auto;
-    background: #282623;
-    color: #f7f5f0;
+    background: var(--code-bg);
+    color: var(--code-ink);
     border-radius: 4px;
     padding: 18px 20px;
   }
@@ -157,6 +229,7 @@ const {
 
   @media (max-width: 720px) {
     .site-header { align-items: flex-start; flex-direction: column; }
+    .header-actions { width: 100%; justify-content: space-between; }
     .diary-intro, .archive-intro { padding: 46px 0 34px; }
     .reading-page { margin: 40px auto 64px; }
     .article-content { font-size: 19px; line-height: 1.9; }
