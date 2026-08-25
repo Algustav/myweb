@@ -4,7 +4,7 @@
 
 **Goal:** 将 Astro 博客模板改为适合 Kindle 长文阅读的极简单栏日记本。
 
-**Architecture:** 保留内容集合、路由与 Decap CMS；只调整现有布局、首页、文章条目和文章详情模板。Node 内置测试检查关键模板标记，Astro 生产构建检查最终站点生成。
+**Architecture:** 保留内容集合、路由与 Decap CMS；只调整现有布局、首页、文章条目和文章详情模板。Node 内置测试读取 Astro 实际生成的 HTML，检查最终页面行为与内容，而不是检查源码字符串。
 
 **Tech Stack:** Astro 5、TypeScript、Node.js 内置测试运行器、CSS。
 
@@ -19,15 +19,15 @@
 
 ---
 
-### Task 1: 建立模板回归测试
+### Task 1: 建立生成页面的回归测试
 
 **Files:**
 - Create: `tests/diary-template.test.mjs`
 - Modify: `package.json`
 
 **Interfaces:**
-- Consumes: 首页、文章条目、全局布局和文章页模板源文件。
-- Produces: `npm run test:template`，断言 `diary-intro`、`diary-feed`、`entry`、`reading-page`、`--reading-width: 680px` 与 `line-height: 1.9`。
+- Consumes: `npm.cmd run build` 生成的 `dist/index.html` 与 `dist/blog/hello-astro/index.html`。
+- Produces: `npm run test:template`，检查首页日记介绍、无旧 Hero 文案、文章条目及全文页的实际阅读样式。
 
 - [ ] **Step 1: 写出失败测试**
 
@@ -36,24 +36,25 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-const source = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
+const page = (path) => readFile(new URL(`../dist/${path}`, import.meta.url), 'utf8');
 
 test('首页是单栏日记信息流', async () => {
-  assert.match(await source('src/pages/index.astro'), /class="diary-intro"/);
-  assert.match(await source('src/pages/index.astro'), /class="diary-feed"/);
-  assert.match(await source('src/components/PostCard.astro'), /class="entry"/);
+  const home = await page('index.html');
+  assert.match(home, /Algustav 的日记本/);
+  assert.match(home, /class="entry"/);
+  assert.doesNotMatch(home, /Personal notes \/ web \/ product \/ life/);
 });
 
 test('文章页支持 Kindle 阅读排版', async () => {
-  assert.match(await source('src/pages/blog/[...slug].astro'), /class="reading-page"/);
-  const layout = await source('src/layouts/BaseLayout.astro');
-  assert.match(layout, /--reading-width: 680px/);
-  assert.match(layout, /line-height: 1\.9/);
+  const article = await page('blog/hello-astro/index.html');
+  assert.match(article, /class="reading-page"/);
+  assert.match(article, /--reading-width: 680px/);
+  assert.match(article, /line-height:1\.9/);
 });
 ```
 
-- [ ] **Step 2: 运行 `node --test tests/diary-template.test.mjs`，确认断言因标记缺失而失败。**
-- [ ] **Step 3: 在 `package.json` 增加 `"test:template": "node --test tests/diary-template.test.mjs"`。**
+- [ ] **Step 2: 运行 `npm.cmd run build` 生成当前页面，再运行 `node --test tests/diary-template.test.mjs`，确认测试因当前首页与文章页不符合日记体验而失败。**
+- [ ] **Step 3: 在 `package.json` 增加 `"test:template": "npm run build && node --test tests/diary-template.test.mjs"`。**
 - [ ] **Step 4: 运行 `npm.cmd run test:template`，确认仍为预期失败。**
 
 ### Task 2: 改造首页与全局日记视觉
