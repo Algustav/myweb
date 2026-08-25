@@ -10,11 +10,11 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout title="文章 - Algustav">
-  <h1 style="margin: 56px 0 12px;">文章</h1>
-  <p style="max-width: 680px; color: var(--muted); margin: 0 0 36px;">
-    所有文章都会从 `src/content/blog` 自动生成。新增 Markdown 文件后，列表和文章详情页会自动更新。
-  </p>
-  <section class="post-list" aria-label="文章列表">
+  <section class="archive-intro">
+    <p class="kicker">归档</p>
+    <h1>所有日记</h1>
+  </section>
+  <section class="diary-feed" aria-label="文章列表">
     {posts.map((post) => <PostCard post={post} />)}
   </section>
 </BaseLayout>

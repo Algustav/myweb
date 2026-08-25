@@ -11,9 +11,9 @@ const formattedDate = new Intl.DateTimeFormat('zh-CN', {
 const slug = post.id.replace(/\.(md|mdx)$/, '');
 ---
 
-<article class="post-card">
+<article class="entry">
   <a href={`/blog/${slug}/`}>
-    <span>{formattedDate}</span>
+    <time datetime={postDate.toISOString()}>{formattedDate}</time>
     <h2>{post.data.title}</h2>
     <p>{post.data.description}</p>
     {post.data.tags.length > 0 && (
