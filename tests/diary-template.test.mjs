@@ -24,4 +24,6 @@ test('文章页支持 Kindle 阅读排版', async () => {
   assert.match(article, /class="reading-page"/);
   assert.match(css, /--reading-width: 680px/);
   assert.match(css, /line-height:1\.9/);
+  assert.match(css, /padding-left:28px/);
+  assert.match(css, /padding-right:28px/);
 });

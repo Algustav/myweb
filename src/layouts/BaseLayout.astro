@@ -118,8 +118,11 @@ const {
   .site-header,
   .site-footer,
   main {
-    width: min(var(--reading-width), calc(100% - 40px));
+    width: auto;
+    max-width: 680px;
     margin: 0 auto;
+    padding-left: 28px;
+    padding-right: 28px;
   }
 
   .site-header {
