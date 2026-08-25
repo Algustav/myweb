@@ -22,10 +22,12 @@ const formattedDate = new Intl.DateTimeFormat('zh-CN', {
 ---
 
 <BaseLayout title={`${post.data.title} - Algustav`} description={post.data.description}>
-  <article class="article">
-    <time datetime={postDate.toISOString()}>{formattedDate}</time>
-    <h1>{post.data.title}</h1>
-    <p class="article-description">{post.data.description}</p>
+  <article class="reading-page">
+    <header class="reading-header">
+      <time datetime={postDate.toISOString()}>{formattedDate}</time>
+      <h1>{post.data.title}</h1>
+      <p class="article-description">{post.data.description}</p>
+    </header>
     <div class="article-content">
       <Content />
     </div>

@@ -1,7 +1,10 @@
 ---
+import '@fontsource/lxgw-wenkai';
+import '@fontsource-variable/noto-sans-sc';
+
 const {
-  title = '个人博客',
-  description = '一个用 Astro 和 Cloudflare Pages 托管的个人博客。'
+  title = 'Algustav 的日记本',
+  description = '一个安静记录日常与想法的个人日记本。'
 } = Astro.props;
 ---
 
@@ -13,281 +16,223 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('diary-theme');
+        const font = localStorage.getItem('diary-font');
+        document.documentElement.dataset.theme = theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (font) document.documentElement.dataset.font = font;
+      } catch {}
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">Algustav</a>
-      <nav aria-label="主导航">
-        <a href="/">首页</a>
-        <a href="/blog/">文章</a>
-        <a href="/about/">关于</a>
-      </nav>
+      <a class="brand" href="/">Algustav 的日记本</a>
+      <div class="header-actions">
+        <nav aria-label="主导航"><a href="/">首页</a><a href="/blog/">文章</a><a href="/about/">关于</a></nav>
+        <div class="appearance-controls" aria-label="阅读外观">
+          <button id="theme-toggle" class="icon-button" type="button" aria-label="切换深色模式" title="切换深色模式"><span aria-hidden="true">◐</span></button>
+          <button id="font-toggle" class="icon-button" type="button" aria-label="切换字体" title="切换字体"><span aria-hidden="true">Aa</span></button>
+        </div>
+      </div>
     </header>
-    <main>
-      <slot />
-    </main>
+    <main><slot /></main>
     <footer class="site-footer">
       <span>© {new Date().getFullYear()} Algustav</span>
-      <span>Built with Astro</span>
+      <span>慢慢写，慢慢读。</span>
     </footer>
+    <p id="appearance-status" class="sr-only" aria-live="polite"></p>
+    <script>
+      import { fontNames, nextFont, nextTheme, themeNames } from '../lib/appearance';
+      const root = document.documentElement;
+      const themeButton = document.querySelector('#theme-toggle');
+      const fontButton = document.querySelector('#font-toggle');
+      const status = document.querySelector('#appearance-status');
+      const getTheme = () => root.dataset.theme === 'dark' ? 'dark' : 'light';
+      const getFont = () => ['song', 'wenkai', 'sans'].includes(root.dataset.font || '') ? root.dataset.font : 'song';
+      const updateLabels = () => {
+        const theme = getTheme();
+        const font = getFont();
+        const nextThemeName = themeNames[nextTheme(theme)];
+        themeButton?.setAttribute('aria-label', `切换到${nextThemeName}`);
+        themeButton?.setAttribute('title', `切换到${nextThemeName}`);
+        fontButton?.setAttribute('aria-label', `切换字体，当前${fontNames[font]}`);
+        fontButton?.setAttribute('title', `当前字体：${fontNames[font]}`);
+      };
+      themeButton?.addEventListener('click', () => {
+        const theme = nextTheme(getTheme());
+        root.dataset.theme = theme;
+        localStorage.setItem('diary-theme', theme);
+        if (status) status.textContent = `已切换到${themeNames[theme]}`;
+        updateLabels();
+      });
+      fontButton?.addEventListener('click', () => {
+        const font = nextFont(getFont());
+        root.dataset.font = font;
+        localStorage.setItem('diary-font', font);
+        if (status) status.textContent = `已切换到${fontNames[font]}`;
+        updateLabels();
+      });
+      updateLabels();
+    </script>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --bg: #f7f2e8;
-    --paper: #fffaf0;
-    --ink: #1c1a17;
-    --muted: #70695f;
-    --line: #d8cdbd;
-    --accent: #0b6b62;
-    --accent-strong: #d1492e;
-    --shadow: 0 18px 50px rgba(28, 26, 23, 0.08);
+    --page: #fbfaf7;
+    --ink: #292724;
+    --muted: #77716a;
+    --line: #dfdbd3;
+    --code-bg: #282623;
+    --code-ink: #f7f5f0;
+    --reading-width: 680px;
+    --reading-font: 'Songti SC', STSong, SimSun, serif;
   }
 
-  * {
-    box-sizing: border-box;
+  :root[data-theme='dark'] {
+    --page: #1b1a18;
+    --ink: #eeeae2;
+    --muted: #b8b1a7;
+    --line: #4a4640;
+    --code-bg: #11110f;
+    --code-ink: #f2eee7;
   }
+
+  :root[data-font='wenkai'] { --reading-font: 'LXGW WenKai', 'Songti SC', STSong, serif; }
+  :root[data-font='sans'] { --reading-font: 'Noto Sans SC Variable', 'Noto Sans SC', 'Microsoft YaHei', sans-serif; }
+
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
     min-height: 100vh;
-    background:
-      linear-gradient(90deg, rgba(11, 107, 98, 0.07) 1px, transparent 1px),
-      linear-gradient(rgba(11, 107, 98, 0.06) 1px, transparent 1px),
-      var(--bg);
-    background-size: 32px 32px;
+    background: var(--page);
     color: var(--ink);
-    font-family: Georgia, 'Times New Roman', serif;
-    line-height: 1.65;
+    font-family: var(--reading-font);
+    line-height: 1.7;
   }
 
-  a {
-    color: inherit;
-  }
+  a { color: inherit; }
 
   .site-header,
-  .site-footer {
-    width: min(1120px, calc(100% - 32px));
+  .site-footer,
+  main {
+    width: min(var(--reading-width), calc(100% - 40px));
     margin: 0 auto;
+  }
+
+  .site-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-  }
-
-  .site-header {
-    padding: 28px 0 20px;
-  }
-
-  .brand {
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0;
-    text-decoration: none;
-  }
-
-  nav {
-    display: flex;
-    gap: 18px;
-    color: var(--muted);
-    font-size: 0.96rem;
-  }
-
-  nav a {
-    text-decoration: none;
-  }
-
-  nav a:hover {
-    color: var(--accent);
-  }
-
-  main {
-    width: min(1120px, calc(100% - 32px));
-    margin: 0 auto;
-  }
-
-  .hero {
-    min-height: 52vh;
-    display: grid;
-    align-items: center;
-    padding: 64px 0 48px;
-    border-top: 1px solid var(--line);
+    padding: 30px 0 22px;
     border-bottom: 1px solid var(--line);
   }
 
-  .hero-inner {
-    max-width: 860px;
-  }
-
-  .eyebrow {
-    margin: 0 0 18px;
-    color: var(--accent-strong);
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: clamp(3rem, 9vw, 7rem);
-    line-height: 0.92;
-    letter-spacing: 0;
-  }
-
-  .hero p {
-    max-width: 640px;
-    margin: 28px 0 0;
-    color: var(--muted);
-    font-size: 1.16rem;
-  }
-
-  .section-title {
-    margin: 64px 0 22px;
+  .brand {
     font-size: 1rem;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .post-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-    margin-bottom: 56px;
-  }
-
-  .post-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-    transition: transform 180ms ease, border-color 180ms ease;
-  }
-
-  .post-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
-  }
-
-  .post-card a {
-    display: block;
-    min-height: 230px;
-    padding: 28px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-decoration: none;
   }
 
-  .post-card span {
-    color: var(--accent);
-    font-size: 0.88rem;
-    font-weight: 700;
-  }
+  .header-actions { display: flex; align-items: center; gap: 14px; }
+  nav { display: flex; gap: 16px; color: var(--muted); font-size: 0.9rem; }
+  nav a { text-decoration: none; }
+  nav a:hover { color: var(--ink); }
 
-  .post-card h2 {
-    margin: 18px 0 10px;
-    font-size: 1.8rem;
-    line-height: 1.05;
+  .appearance-controls { display: flex; gap: 6px; }
+  .icon-button {
+    display: grid; width: 30px; height: 30px; place-items: center; padding: 0;
+    border: 1px solid var(--line); border-radius: 3px; background: transparent;
+    color: var(--ink); font: inherit; font-size: 0.86rem; line-height: 1; cursor: pointer;
   }
+  .icon-button:hover, .icon-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 
-  .post-card p {
-    margin: 0;
-    color: var(--muted);
-  }
+  .diary-intro,
+  .archive-intro { padding: 68px 0 44px; }
 
-  .post-card ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 24px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .post-card li {
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 3px 10px;
+  .kicker {
+    margin: 0 0 12px;
     color: var(--muted);
     font-size: 0.82rem;
+    letter-spacing: 0.12em;
   }
 
-  .article {
-    max-width: 760px;
-    margin: 48px auto 80px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: clamp(28px, 6vw, 64px);
-    box-shadow: var(--shadow);
-  }
-
-  .article time {
-    color: var(--accent);
+  .diary-intro h1,
+  .archive-intro h1 {
+    margin: 0;
+    font-size: clamp(2rem, 7vw, 3rem);
+    line-height: 1.2;
     font-weight: 700;
   }
 
-  .article h1 {
-    margin: 14px 0 20px;
-    font-size: clamp(2.4rem, 7vw, 4.8rem);
-  }
-
-  .article-description {
+  .diary-intro > p:last-child {
+    margin: 18px 0 0;
     color: var(--muted);
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 
-  .article-content {
-    margin-top: 42px;
-    font-size: 1.08rem;
+  .diary-feed { margin-bottom: 72px; border-top: 1px solid var(--line); }
+  .entry { padding: 26px 0 28px; border-bottom: 1px solid var(--line); }
+  .entry a { display: block; text-decoration: none; }
+  .entry time,
+  .reading-header time { color: var(--muted); font-size: 0.88rem; }
+
+  .entry h2 {
+    margin: 8px 0 9px;
+    font-size: clamp(1.35rem, 4vw, 1.65rem);
+    line-height: 1.35;
+    font-weight: 700;
   }
 
-  .article-content h2 {
-    margin-top: 2.1em;
-    font-size: 1.7rem;
-    line-height: 1.15;
+  .entry p { margin: 0; color: var(--muted); line-height: 1.7; }
+  .entry ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .entry li { color: var(--muted); font-size: 0.8rem; }
+  .entry li::before { content: '#'; }
+
+  .reading-page { max-width: var(--reading-width); margin: 56px auto 88px; }
+  .reading-header { margin-bottom: 44px; padding-bottom: 34px; border-bottom: 1px solid var(--line); }
+
+  .reading-page h1 {
+    margin: 12px 0 18px;
+    font-size: clamp(2rem, 7vw, 3.1rem);
+    line-height: 1.25;
+    font-weight: 700;
   }
 
-  .article-content code {
-    background: #eee2d1;
-    border-radius: 4px;
-    padding: 2px 5px;
-    font-size: 0.92em;
-  }
+  .article-description { margin: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.75; }
+  .article-content { font-size: 1.125rem; line-height: 1.9; }
+  .article-content h2 { margin-top: 2.1em; font-size: 1.55rem; line-height: 1.3; }
+  .article-content code { background: color-mix(in srgb, var(--line) 48%, transparent); border-radius: 3px; padding: 2px 5px; font-size: 0.9em; }
 
   .article-content pre {
     overflow-x: auto;
-    background: #1c1a17;
-    color: #fffaf0;
-    border-radius: 8px;
-    padding: 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 4px;
+    padding: 18px 20px;
   }
 
   .site-footer {
-    padding: 32px 0 44px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px 0 44px;
     border-top: 1px solid var(--line);
     color: var(--muted);
-    font-size: 0.92rem;
+    font-size: 0.84rem;
   }
 
   @media (max-width: 720px) {
-    .site-header,
-    .site-footer {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-
-    nav {
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    .hero {
-      min-height: auto;
-      padding: 48px 0 40px;
-    }
-
-    .post-list {
-      grid-template-columns: 1fr;
-    }
+    .site-header { align-items: flex-start; flex-direction: column; }
+    .header-actions { width: 100%; justify-content: space-between; }
+    .diary-intro, .archive-intro { padding: 46px 0 34px; }
+    .reading-page { margin: 40px auto 64px; }
+    .article-content { font-size: 19px; line-height: 1.9; }
+    .site-footer { align-items: flex-start; flex-direction: column; }
   }
 </style>
