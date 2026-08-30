@@ -28,6 +28,7 @@ test('文章页支持 Kindle 阅读排版', async () => {
   assert.match(css, /padding-right:28px/);
   assert.match(css, /--reading-font:\s*Arial, Helvetica, sans-serif/);
   assert.match(css, /\.article-content\{font-size:19px/);
+  assert.match(css, /\.article-content img\{display:block;max-width:100%;height:auto/);
 });
 
 test('文章归档按日期输出紧凑条目', async () => {
