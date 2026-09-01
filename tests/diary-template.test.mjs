@@ -56,3 +56,24 @@ test('RSS 订阅源输出文章、正文与标签', async () => {
   assert.match(feed, /当越来越自由/);
   assert.match(home, /rel="alternate" type="application\/rss\+xml" href="\/rss\.xml"/);
 });
+
+test('主导航包含四个内容分类入口', async () => {
+  const home = await page('index.html');
+
+  assert.match(home, /href="\/blog\/">Blog<\/a>/);
+  assert.match(home, /href="\/moments\/">Moments<\/a>/);
+  assert.match(home, /href="\/readlater\/">Read Later<\/a>/);
+  assert.match(home, /href="\/pieces\/">Pieces<\/a>/);
+});
+
+test('窄屏页眉和页脚保留正文边距及内缩分割线', async () => {
+  const home = await page('index.html');
+  const css = await stylesheet(home);
+
+  assert.match(css, /\.site-header[^}]*padding-left:28px[^}]*padding-right:28px/);
+  assert.match(css, /\.site-footer[^}]*padding-left:28px[^}]*padding-right:28px/);
+  assert.doesNotMatch(css, /\.site-header\{[^}]*padding:30px 0 22px/);
+  assert.doesNotMatch(css, /\.site-footer\{[^}]*padding:28px 0 44px/);
+  assert.match(css, /\.site-header::?after[^}]*left:28px[^}]*right:28px/);
+  assert.match(css, /\.site-footer::?before[^}]*left:28px[^}]*right:28px/);
+});

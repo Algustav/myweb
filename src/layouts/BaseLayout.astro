@@ -30,7 +30,14 @@ const {
     <header class="site-header">
       <a class="brand" href="/">Algustav 的日记本</a>
       <div class="header-actions">
-        <nav aria-label="主导航"><a href="/">首页</a><a href="/blog/">文章</a><a href="/about/">关于</a></nav>
+        <nav aria-label="主导航">
+          <a href="/">首页</a>
+          <a href="/blog/">Blog</a>
+          <a href="/moments/">Moments</a>
+          <a href="/readlater/">Read Later</a>
+          <a href="/pieces/">Pieces</a>
+          <a href="/about/">关于</a>
+        </nav>
         <div class="appearance-controls" aria-label="阅读外观">
           <button id="theme-toggle" class="icon-button" type="button" aria-label="切换深色模式" title="切换深色模式"><span aria-hidden="true">◐</span></button>
           <button id="font-toggle" class="icon-button" type="button" aria-label="切换字体" title="切换字体"><span aria-hidden="true">Aa</span></button>
@@ -129,12 +136,22 @@ const {
   }
 
   .site-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 30px 0 22px;
+    padding-top: 30px;
+    padding-bottom: 22px;
+  }
+
+  .site-header::after {
+    position: absolute;
+    bottom: 0;
+    left: 28px;
+    right: 28px;
     border-bottom: 1px solid var(--line);
+    content: '';
   }
 
   .brand {
@@ -145,7 +162,7 @@ const {
   }
 
   .header-actions { display: flex; align-items: center; gap: 14px; }
-  nav { display: flex; gap: 16px; color: var(--muted); font-size: 0.95rem; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px 16px; color: var(--muted); font-size: 0.95rem; }
   nav a { text-decoration: none; }
   nav a:hover { color: var(--ink); }
 
@@ -230,18 +247,30 @@ const {
   }
 
   .site-footer {
+    position: relative;
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding: 28px 0 44px;
-    border-top: 1px solid var(--line);
+    padding-top: 28px;
+    padding-bottom: 44px;
     color: var(--muted);
     font-size: 0.84rem;
   }
 
+  .site-footer::before {
+    position: absolute;
+    top: 0;
+    left: 28px;
+    right: 28px;
+    border-top: 1px solid var(--line);
+    content: '';
+  }
+
   @media (max-width: 720px) {
     .site-header { align-items: flex-start; flex-direction: column; }
-    .header-actions { width: 100%; justify-content: space-between; }
+    .header-actions { width: 100%; align-items: flex-start; justify-content: space-between; }
+    .header-actions nav { min-width: 0; }
+    .appearance-controls { flex: none; }
     .diary-intro, .archive-intro { padding: 46px 0 34px; }
     .reading-page { margin: 40px auto 64px; }
     .article-content { font-size: 19px; line-height: 1.9; }
