@@ -57,13 +57,13 @@ test('RSS 订阅源输出文章、正文与标签', async () => {
   assert.match(home, /rel="alternate" type="application\/rss\+xml" href="\/rss\.xml"/);
 });
 
-test('主导航包含四个内容分类入口', async () => {
+test('主导航以中文显示四个内容分类入口', async () => {
   const home = await page('index.html');
 
-  assert.match(home, /href="\/blog\/">Blog<\/a>/);
-  assert.match(home, /href="\/moments\/">Moments<\/a>/);
-  assert.match(home, /href="\/readlater\/">Read Later<\/a>/);
-  assert.match(home, /href="\/pieces\/">Pieces<\/a>/);
+  assert.match(home, /href="\/blog\/">博客<\/a>/);
+  assert.match(home, /href="\/moments\/">时刻<\/a>/);
+  assert.match(home, /href="\/readlater\/">文摘<\/a>/);
+  assert.match(home, /href="\/pieces\/">碎片<\/a>/);
 });
 
 test('窄屏页眉和页脚保留正文边距及内缩分割线', async () => {
