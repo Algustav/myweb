@@ -31,13 +31,19 @@ test('文章页支持 Kindle 阅读排版', async () => {
   assert.match(css, /\.article-content img\{display:block;max-width:100%;height:auto/);
 });
 
-test('文章归档按日期输出紧凑条目', async () => {
-  const archive = await page('blog/index.html');
+test('四个分类页按标签输出紧凑归档', async () => {
+  const blog = await page('blog/index.html');
+  const moments = await page('moments/index.html');
+  const readlater = await page('readlater/index.html');
+  const pieces = await page('pieces/index.html');
 
-  assert.match(archive, /class="archive-entry"/);
-  assert.match(archive, /2026\/08\/24/);
-  assert.match(archive, /付鹏 2024 年汇丰分享/);
-  assert.match(archive, /readlater/);
+  assert.match(blog, /class="archive-list"/);
+  assert.match(moments, /class="archive-list"/);
+  assert.match(readlater, /付鹏 2024 年汇丰分享/);
+  assert.doesNotMatch(readlater, /突然我悟了，要做什么不要等/);
+  assert.match(pieces, /突然我悟了，要做什么不要等/);
+  assert.doesNotMatch(pieces, /付鹏 2024 年汇丰分享/);
+  assert.match(readlater, /2026\/08\/24/);
 });
 
 test('RSS 订阅源输出文章、正文与标签', async () => {

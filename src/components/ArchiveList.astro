@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getPostDate } from '../lib/postDate';
+
+interface Props {
+  kicker: string;
+  title: string;
+  posts: CollectionEntry<'blog'>[];
+  emptyMessage: string;
+}
+
+const { kicker, title, posts, emptyMessage } = Astro.props;
+const formatDate = (date: Date) => {
+  const parts = new Intl.DateTimeFormat('en', {
+    timeZone: 'Asia/Hong_Kong',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(date);
+  const value = (type: string) => parts.find((part) => part.type === type)?.value;
+  return `${value('year')}/${value('month')}/${value('day')}`;
+};
+---
+
+<section class="archive-intro">
+  <p class="kicker">{kicker}</p>
+  <h1>{title}</h1>
+</section>
+<section class="archive-list" aria-label={`${title}文章列表`}>
+  {posts.length === 0 && <p class="archive-empty">{emptyMessage}</p>}
+  {posts.map((post) => {
+    const slug = post.id.replace(/\.(md|mdx)$/, '');
+    return (
+      <p class="archive-entry">
+        <time datetime={getPostDate(post).toISOString()}>{formatDate(getPostDate(post))}</time>
+        <span aria-hidden="true"> - </span>
+        <a href={`/blog/${slug}/`}>{post.data.title}</a>
+      </p>
+    );
+  })}
+</section>

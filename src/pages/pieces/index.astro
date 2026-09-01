@@ -5,11 +5,11 @@ import { getCollection } from 'astro:content';
 import { filterPostsByCategory } from '../../lib/contentCategory';
 import { getPostDate } from '../../lib/postDate';
 
-const posts = filterPostsByCategory(await getCollection('blog'), 'blog').sort(
+const posts = filterPostsByCategory(await getCollection('blog'), 'pieces').sort(
   (a, b) => getPostDate(b).valueOf() - getPostDate(a).valueOf()
 );
 ---
 
-<BaseLayout title="Blog - Algustav">
-  <ArchiveList kicker="原创长文" title="Blog" posts={posts} emptyMessage="还没有 Blog 文章。" />
+<BaseLayout title="Pieces - Algustav">
+  <ArchiveList kicker="零散记录" title="Pieces" posts={posts} emptyMessage="还没有 Pieces。" />
 </BaseLayout>
