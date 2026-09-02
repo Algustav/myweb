@@ -28,21 +28,21 @@ const {
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">Algustav 的日记本</a>
-      <div class="header-actions">
-        <nav aria-label="主导航">
-          <a href="/">首页</a>
-          <a href="/blog/">博客</a>
-          <a href="/moments/">时刻</a>
-          <a href="/readlater/">文摘</a>
-          <a href="/pieces/">碎片</a>
-          <a href="/about/">关于</a>
-        </nav>
+      <div class="header-top">
+        <a class="brand" href="/">Algustav 的日记本</a>
         <div class="appearance-controls" aria-label="阅读外观">
           <button id="theme-toggle" class="icon-button" type="button" aria-label="切换深色模式" title="切换深色模式"><span aria-hidden="true">◐</span></button>
           <button id="font-toggle" class="icon-button" type="button" aria-label="切换字体" title="切换字体"><span aria-hidden="true">Aa</span></button>
         </div>
       </div>
+      <nav aria-label="主导航">
+        <a href="/">首页</a>
+        <a href="/blog/">博客</a>
+        <a href="/moments/">时刻</a>
+        <a href="/readlater/">文摘</a>
+        <a href="/pieces/">碎片</a>
+        <a href="/about/">关于</a>
+      </nav>
     </header>
     <main><slot /></main>
     <footer class="site-footer">
@@ -138,9 +138,9 @@ const {
   .site-header {
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
     padding-top: 30px;
     padding-bottom: 22px;
   }
@@ -161,7 +161,7 @@ const {
     text-decoration: none;
   }
 
-  .header-actions { display: flex; align-items: center; gap: 14px; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   nav { display: flex; flex-wrap: wrap; gap: 8px 16px; color: var(--muted); font-size: 0.95rem; }
   nav a { text-decoration: none; }
   nav a:hover { color: var(--ink); }
@@ -267,10 +267,6 @@ const {
   }
 
   @media (max-width: 720px) {
-    .site-header { align-items: flex-start; flex-direction: column; }
-    .header-actions { width: 100%; align-items: flex-start; justify-content: space-between; }
-    .header-actions nav { min-width: 0; }
-    .appearance-controls { flex: none; }
     .diary-intro, .archive-intro { padding: 46px 0 34px; }
     .reading-page { margin: 40px auto 64px; }
     .article-content { font-size: 19px; line-height: 1.9; }

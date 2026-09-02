@@ -66,6 +66,20 @@ test('主导航以中文显示四个内容分类入口', async () => {
   assert.match(home, /href="\/pieces\/">碎片<\/a>/);
 });
 
+test('页眉第一行并排显示站点标题和阅读外观按钮，菜单独占第二行', async () => {
+  const home = await page('index.html');
+  const css = await stylesheet(home);
+  const headerTop = home.indexOf('class="header-top"');
+  const brand = home.indexOf('class="brand"');
+  const appearanceControls = home.indexOf('class="appearance-controls"');
+  const navigation = home.indexOf('<nav aria-label="主导航">');
+
+  assert.ok(headerTop >= 0, '页眉应包含第一行容器');
+  assert.ok(headerTop < brand && brand < appearanceControls && appearanceControls < navigation);
+  assert.match(css, /\.site-header\{[^}]*flex-direction:column[^}]*align-items:stretch/);
+  assert.match(css, /\.header-top\{[^}]*display:flex[^}]*justify-content:space-between/);
+});
+
 test('窄屏页眉和页脚保留正文边距及内缩分割线', async () => {
   const home = await page('index.html');
   const css = await stylesheet(home);
