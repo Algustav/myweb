@@ -55,10 +55,16 @@ test('后台的时刻和碎片只要求填写正文', async () => {
 
 test('秒级文件名保留轻量内容的实际创建时间', () => {
   const date = getPostDate({ id: '20260906-153045.md', data: {} });
-  assert.deepEqual(
-    [date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()],
-    [2026, 9, 6, 15, 30, 45]
+  assert.equal(date.toISOString(), '2026-09-06T07:30:45.000Z');
+
+  const moduleUrl = new URL('../src/lib/postDate.ts', import.meta.url).href;
+  const utcResult = spawnSync(
+    process.execPath,
+    ['--experimental-strip-types', '--input-type=module', '--eval', `import { getPostDate } from '${moduleUrl}'; console.log(getPostDate({ id: '20260906-153045.md', data: {} }).toISOString());`],
+    { encoding: 'utf8', env: { ...process.env, TZ: 'UTC' } }
   );
+  assert.equal(utcResult.status, 0, utcResult.stderr);
+  assert.equal(utcResult.stdout.trim(), '2026-09-06T07:30:45.000Z');
 });
 
 test('只有正文的轻量内容可以构建并显示在首页、归档、文章页和 RSS', async () => {

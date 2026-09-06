@@ -6,6 +6,7 @@ import { isLightweightPost } from '../lib/postPresentation';
 const { post } = Astro.props;
 const postDate = getPostDate(post);
 const formattedDate = new Intl.DateTimeFormat('zh-CN', {
+  timeZone: 'Asia/Hong_Kong',
   year: 'numeric',
   month: 'long',
   day: 'numeric'
