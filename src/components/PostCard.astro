@@ -31,7 +31,7 @@ const { Content } = await render(post);
     </a>
   )}
   {post.data.tags.length > 0 && (
-    <ul>
+    <ul class="entry-tags">
       {post.data.tags.map((tag) => <li>{tag}</li>)}
     </ul>
   )}

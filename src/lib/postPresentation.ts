@@ -28,10 +28,12 @@ export const isLightweightPost = (post: PresentablePost) => (
   post.data.kind === 'moments' || post.data.kind === 'pieces'
 );
 
-export const getPostTitle = (post: PresentablePost) => (
-  post.data.title?.trim() || truncate(toPlainText(post.body), 48) || '未命名记录'
-);
+export const getPostTitle = (post: PresentablePost) => {
+  const bodyTitle = truncate(toPlainText(post.body), 48) || '未命名记录';
+  return isLightweightPost(post) ? bodyTitle : post.data.title?.trim() || bodyTitle;
+};
 
-export const getPostDescription = (post: PresentablePost) => (
-  post.data.description?.trim() || truncate(toPlainText(post.body), 140)
-);
+export const getPostDescription = (post: PresentablePost) => {
+  const bodyDescription = truncate(toPlainText(post.body), 140);
+  return isLightweightPost(post) ? bodyDescription : post.data.description?.trim() || bodyDescription;
+};
