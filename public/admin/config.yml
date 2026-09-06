@@ -16,35 +16,83 @@ publish_mode: simple
 
 collections:
   - name: blog
-    label: 博客文章
-    label_singular: 文章
+    label: 博客
+    label_singular: 博客文章
     folder: src/content/blog
     create: true
+    filter: { field: kind, value: blog }
     extension: md
     format: frontmatter
     slug: "{{year}}{{month}}{{day}}-{{slug}}"
     preview_path: "blog/{{slug}}"
     summary: "{{title}} - {{pubDate}}"
     fields:
-      - label: 标题
-        name: title
-        widget: string
-      - label: 摘要
-        name: description
-        widget: text
-      - label: 发布日期
-        name: pubDate
-        widget: date
-        format: YYYY-MM-DD
+      - { label: 内容类型, name: kind, widget: hidden, default: blog }
+      - { label: 标题, name: title, widget: string }
+      - { label: 摘要, name: description, widget: text }
+      - { label: 发布日期, name: pubDate, widget: date, format: YYYY-MM-DD }
       - label: 标签
         name: tags
         widget: list
         required: false
-        default: []
-        field:
-          label: 标签
-          name: tag
-          widget: string
-      - label: 正文
-        name: body
-        widget: markdown
+        default: [blog]
+        field: { label: 标签, name: tag, widget: string }
+      - { label: 正文, name: body, widget: markdown }
+
+  - name: moments
+    label: 时刻
+    label_singular: 时刻
+    folder: src/content/blog
+    create: true
+    filter: { field: kind, value: moments }
+    identifier_field: body
+    extension: md
+    format: frontmatter
+    slug: "{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{body}}"
+    fields:
+      - { label: 内容类型, name: kind, widget: hidden, default: moments }
+      - { label: 标签, name: tags, widget: hidden, default: [moments] }
+      - { label: 正文, name: body, widget: markdown, minimal: true }
+
+  - name: readlater
+    label: 文摘
+    label_singular: 文摘文章
+    folder: src/content/blog
+    create: true
+    filter: { field: kind, value: readlater }
+    extension: md
+    format: frontmatter
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{title}} - {{pubDate}}"
+    fields:
+      - { label: 内容类型, name: kind, widget: hidden, default: readlater }
+      - { label: 标题, name: title, widget: string }
+      - { label: 摘要, name: description, widget: text }
+      - { label: 发布日期, name: pubDate, widget: date, format: YYYY-MM-DD }
+      - label: 标签
+        name: tags
+        widget: list
+        required: false
+        default: [readlater]
+        field: { label: 标签, name: tag, widget: string }
+      - { label: 正文, name: body, widget: markdown }
+
+  - name: pieces
+    label: 碎片
+    label_singular: 碎片
+    folder: src/content/blog
+    create: true
+    filter: { field: kind, value: pieces }
+    identifier_field: body
+    extension: md
+    format: frontmatter
+    slug: "{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{body}}"
+    fields:
+      - { label: 内容类型, name: kind, widget: hidden, default: pieces }
+      - { label: 标签, name: tags, widget: hidden, default: [] }
+      - { label: 正文, name: body, widget: markdown, minimal: true }

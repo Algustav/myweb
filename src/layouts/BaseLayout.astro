@@ -206,7 +206,12 @@ const {
   .archive-entry a { color: var(--ink); text-decoration: none; }
   .archive-entry a:hover { text-decoration: underline; }
   .entry { padding: 26px 0 28px; border-bottom: 1px solid var(--line); }
-  .entry a { display: block; text-decoration: none; }
+  .entry > a { display: block; text-decoration: none; }
+  .entry-content { margin-top: 8px; color: var(--ink); }
+  .entry-content > :first-child { margin-top: 0; }
+  .entry-content > :last-child { margin-bottom: 0; }
+  .entry-content p { color: var(--ink); }
+  .entry-content a { display: inline; text-decoration: underline; }
   .entry time,
   .reading-header time { color: var(--muted); font-size: 0.94rem; }
 
@@ -224,6 +229,7 @@ const {
 
   .reading-page { max-width: var(--reading-width); margin: 56px auto 88px; }
   .reading-header { margin-bottom: 44px; padding-bottom: 34px; border-bottom: 1px solid var(--line); }
+  .reading-header--lightweight { margin-bottom: 24px; padding-bottom: 18px; }
 
   .reading-page h1 {
     margin: 12px 0 18px;

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { getPostDate } from '../../lib/postDate';
+import { getPostDescription, getPostTitle, isLightweightPost } from '../../lib/postPresentation';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -13,6 +14,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const lightweight = isLightweightPost(post);
+const displayTitle = getPostTitle(post);
+const displayDescription = getPostDescription(post);
 const postDate = getPostDate(post);
 const formattedDate = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -21,12 +25,12 @@ const formattedDate = new Intl.DateTimeFormat('zh-CN', {
 }).format(postDate);
 ---
 
-<BaseLayout title={`${post.data.title} - Algustav`} description={post.data.description}>
+<BaseLayout title={`${displayTitle} - Algustav`} description={displayDescription}>
   <article class="reading-page">
-    <header class="reading-header">
+    <header class:list={['reading-header', { 'reading-header--lightweight': lightweight }]}>
       <time datetime={postDate.toISOString()}>{formattedDate}</time>
-      <h1>{post.data.title}</h1>
-      <p class="article-description">{post.data.description}</p>
+      {!lightweight && <h1>{post.data.title}</h1>}
+      {!lightweight && <p class="article-description">{post.data.description}</p>}
     </header>
     <div class="article-content">
       <Content />

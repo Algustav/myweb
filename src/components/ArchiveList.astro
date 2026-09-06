@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getPostDate } from '../lib/postDate';
+import { getPostTitle } from '../lib/postPresentation';
 
 interface Props {
   kicker: string;
@@ -34,7 +35,7 @@ const formatDate = (date: Date) => {
       <p class="archive-entry">
         <time datetime={getPostDate(post).toISOString()}>{formatDate(getPostDate(post))}</time>
         <span aria-hidden="true"> - </span>
-        <a href={`/blog/${slug}/`}>{post.data.title}</a>
+        <a href={`/blog/${slug}/`}>{getPostTitle(post)}</a>
       </p>
     );
   })}

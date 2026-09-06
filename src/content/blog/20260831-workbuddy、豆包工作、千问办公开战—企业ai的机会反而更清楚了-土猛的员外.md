@@ -1,9 +1,10 @@
 ---
+kind: readlater
 title: WorkBuddy、豆包工作、千问办公开战—企业AI的机会反而更清楚了-土猛的员外
 description: AI
   办公正在成为巨头的新战场。但让一个员工更快完成文档，不等于让一家企业更高效地运转。个人工作入口之外，企业知识、流程、权限与协同，正在形成更大也更难的市场。
 tags:
-  - readerlater
+  - readlater
 ---
 大厂的AI办公之战已经开启
 
