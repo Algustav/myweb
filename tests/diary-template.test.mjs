@@ -9,12 +9,20 @@ const stylesheet = async (html) => {
   return readFile(new URL(`../dist${href}`, import.meta.url), 'utf8');
 };
 
-test('首页是单栏日记信息流', async () => {
+test('首页以紧凑列表区分完整文章和轻量内容', async () => {
   const home = await page('index.html');
+  const css = await stylesheet(home);
 
   assert.match(home, /Algustav 的日记本/);
-  assert.match(home, /class="entry"/);
-  assert.doesNotMatch(home, /Personal notes \/ web \/ product \/ life/);
+  assert.match(home, /class="archive-list home-post-list"/);
+  assert.doesNotMatch(home, /class="entry(?: |")/);
+  assert.match(home, /class="home-post-link"[^>]*>测试博客标题<\/a>/);
+  assert.doesNotMatch(home, /测试博客的摘要/);
+  assert.match(home, /class="home-post-link"[^>]*>开始看东野圭吾的《白夜行》/);
+  assert.match(home, /class="category-pill" href="\/blog\/">博客<\/a>/);
+  assert.match(home, /class="category-pill" href="\/moments\/">时刻<\/a>/);
+  assert.match(home, /class="category-pill" href="\/readlater\/">文摘<\/a>/);
+  assert.match(css, /\.category-pill\{[^}]*border-radius:999px/);
 });
 
 test('文章页支持 Kindle 阅读排版', async () => {
@@ -41,7 +49,7 @@ test('四个分类页按标签输出紧凑归档', async () => {
   assert.match(moments, /class="archive-list"/);
   assert.match(readlater, /付鹏 2024 年汇丰分享/);
   assert.doesNotMatch(readlater, /突然我悟了，要做什么不要等/);
-  assert.match(pieces, /突然我悟了，要做什么不要等/);
+  assert.match(pieces, /还没有 Pieces/);
   assert.doesNotMatch(pieces, /付鹏 2024 年汇丰分享/);
   assert.match(readlater, /2026\/08\/24/);
 });
@@ -57,13 +65,13 @@ test('RSS 订阅源输出文章、正文与标签', async () => {
   assert.match(home, /rel="alternate" type="application\/rss\+xml" href="\/rss\.xml"/);
 });
 
-test('主导航以中文显示四个内容分类入口', async () => {
+test('主导航暂时隐藏碎片入口', async () => {
   const home = await page('index.html');
 
   assert.match(home, /href="\/blog\/">博客<\/a>/);
   assert.match(home, /href="\/moments\/">时刻<\/a>/);
   assert.match(home, /href="\/readlater\/">文摘<\/a>/);
-  assert.match(home, /href="\/pieces\/">碎片<\/a>/);
+  assert.doesNotMatch(home, /href="\/pieces\/">碎片<\/a>/);
 });
 
 test('页眉第一行并排显示站点标题和阅读外观按钮，菜单独占第二行', async () => {

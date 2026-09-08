@@ -4,9 +4,16 @@ export type ContentCategory = (typeof RESERVED_CATEGORY_TAGS)[number] | 'pieces'
 
 type TaggedPost = {
   data: {
+    kind?: ContentCategory;
     tags: string[];
   };
 };
+
+export function getPostCategory(post: TaggedPost): ContentCategory {
+  return post.data.kind
+    ?? RESERVED_CATEGORY_TAGS.find((tag) => post.data.tags.includes(tag))
+    ?? 'pieces';
+}
 
 export function postBelongsToCategory(post: TaggedPost, category: ContentCategory) {
   if (category === 'pieces') {

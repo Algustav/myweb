@@ -40,7 +40,6 @@ const {
         <a href="/blog/">博客</a>
         <a href="/moments/">时刻</a>
         <a href="/readlater/">文摘</a>
-        <a href="/pieces/">碎片</a>
         <a href="/about/">关于</a>
       </nav>
     </header>
@@ -199,40 +198,25 @@ const {
     font-size: 1rem;
   }
 
-  .diary-feed { margin-bottom: 72px; border-top: 1px solid var(--line); }
   .archive-list { margin-bottom: 72px; border-top: 1px solid var(--line); }
   .archive-empty { margin: 0; padding: 24px 0; color: var(--muted); }
   .archive-entry { margin: 0; padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
   .archive-entry a { color: var(--ink); text-decoration: none; }
   .archive-entry a:hover { text-decoration: underline; }
-  .entry { padding: 26px 0 28px; border-bottom: 1px solid var(--line); }
-  .entry > a { display: block; text-decoration: none; }
-  .entry-content { margin-top: 8px; color: var(--ink); }
-  .entry-content > :first-child { margin-top: 0; }
-  .entry-content > :last-child { margin-bottom: 0; }
-  .entry-content p { margin: 0 0 1em; color: var(--ink); }
-  .entry-content a { display: inline; text-decoration: underline; }
-  .entry-content ul,
-  .entry-content ol { display: block; margin: 0 0 1em; padding-left: 1.5em; }
-  .entry-content li { color: var(--ink); font-size: inherit; }
-  .entry-content li::before { content: none; }
-  .entry-content img { display: block; max-width: 100%; height: auto; margin: 1em auto; }
-  .entry-content pre { max-width: 100%; overflow-x: auto; padding: 1em; background: color-mix(in srgb, var(--line) 48%, transparent); }
-  .entry-content code { overflow-wrap: normal; }
-  .entry time,
-  .reading-header time { color: var(--muted); font-size: 0.94rem; }
-
-  .entry h2 {
-    margin: 8px 0 9px;
-    font-size: clamp(1.35rem, 4vw, 1.65rem);
-    line-height: 1.35;
-    font-weight: 700;
+  .category-pill {
+    display: inline-block;
+    margin-left: 0.6em;
+    padding: 0 0.55em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    text-decoration: none;
+    vertical-align: 0.08em;
+    white-space: nowrap;
   }
-
-  .entry > a > p { margin: 0; color: var(--muted); line-height: 1.7; }
-  .entry-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
-  .entry-tags li { color: var(--muted); font-size: 0.8rem; }
-  .entry-tags li::before { content: '#'; }
+  .reading-header time { color: var(--muted); font-size: 0.94rem; }
 
   .reading-page { max-width: var(--reading-width); margin: 56px auto 88px; }
   .reading-header { margin-bottom: 44px; padding-bottom: 34px; border-bottom: 1px solid var(--line); }

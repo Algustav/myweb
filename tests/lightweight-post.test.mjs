@@ -94,16 +94,11 @@ tags:
       'utf8'
     );
     const feed = await readFile(join(projectRoot, 'dist', 'rss.xml'), 'utf8');
-    const stylesheetPath = home.match(/href="([^"]+\.css)"/)?.[1];
-    assert.ok(stylesheetPath, '首页应引用样式表');
-    const stylesheet = await readFile(join(projectRoot, 'dist', stylesheetPath.replace(/^\//, '')), 'utf8');
-
-    const lightweightCard = home.match(/<article class="entry entry--lightweight">([\s\S]*?)<\/article>/)?.[1] ?? '';
-    assert.match(lightweightCard, /只写正文的轻量记录，<strong>不需要标题<\/strong>。/);
-    assert.doesNotMatch(lightweightCard, /<h2>/);
-    assert.doesNotMatch(lightweightCard, /不应显示的旧标题|不应显示的旧摘要/);
-    assert.match(lightweightCard, /<div class="entry-content">[\s\S]*<ul>[\s\S]*第一项/);
-    assert.match(lightweightCard, /<ul class="entry-tags">/);
+    const lightweightRow = home.match(/<p class="archive-entry home-post-entry">([\s\S]*?)<\/p>/)?.[1] ?? '';
+    assert.match(lightweightRow, /只写正文的轻量记录，不需要标题。 第一项 第二项/);
+    assert.doesNotMatch(lightweightRow, /<h2>|<strong>/);
+    assert.doesNotMatch(lightweightRow, /不应显示的旧标题|不应显示的旧摘要/);
+    assert.match(lightweightRow, /class="category-pill" href="\/moments\/">时刻<\/a>/);
     assert.match(archive, /只写正文的轻量记录，不需要标题。/);
     assert.doesNotMatch(archive, /不应显示的旧标题/);
     assert.match(article, /只写正文的轻量记录，<strong>不需要标题<\/strong>。/);
@@ -111,10 +106,6 @@ tags:
     assert.doesNotMatch(article, /不应显示的旧标题|不应显示的旧摘要/);
     assert.match(feed, /<title>只写正文的轻量记录，不需要标题。 第一项 第二项<\/title>/);
     assert.doesNotMatch(feed, /不应显示的旧标题|不应显示的旧摘要/);
-    assert.match(stylesheet, /\.entry-tags\{display:flex/);
-    assert.match(stylesheet, /\.entry-content (ul|ol),\.entry-content (ol|ul)\{display:block/);
-    assert.match(stylesheet, /\.entry-content img\{[^}]*max-width:100%[^}]*height:auto/);
-    assert.match(stylesheet, /\.entry-content pre\{[^}]*overflow-x:auto/);
   } finally {
     await rm(fixturePath, { force: true });
     cleanupResult = buildProject();

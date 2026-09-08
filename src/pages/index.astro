@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/PostCard.astro';
+import HomePostList from '../components/HomePostList.astro';
 import { getCollection } from 'astro:content';
 import { getPostDate } from '../lib/postDate';
 
@@ -16,7 +16,5 @@ const posts = (await getCollection('blog')).sort(
     <p>记录正在发生的事，也留住那些以后还想重新读到的想法。</p>
   </section>
 
-  <section class="diary-feed" aria-label="日记列表">
-    {posts.map((post) => <PostCard post={post} />)}
-  </section>
+  <HomePostList posts={posts} />
 </BaseLayout>
