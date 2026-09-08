@@ -36,8 +36,10 @@ const formatDate = (date: Date) => {
       <p class="archive-entry home-post-entry">
         <time datetime={date.toISOString()}>{formatDate(date)}</time>
         <span aria-hidden="true"> - </span>
-        <a class="home-post-link" href={`/blog/${slug}/`}>{getPostTitle(post)}</a>
-        <a class="category-pill" href={`/${category}/`}>{categoryLabels[category]}</a>
+        <span class="archive-entry-content">
+          <a class="home-post-link" href={`/blog/${slug}/`}>{getPostTitle(post)}</a>
+          <a class="category-pill" href={`/${category}/`}>{categoryLabels[category]}</a>
+        </span>
       </p>
     );
   })}

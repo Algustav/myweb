@@ -15,6 +15,7 @@ test('首页以紧凑列表区分完整文章和轻量内容', async () => {
 
   assert.match(home, /Algustav 的日记本/);
   assert.match(home, /class="archive-list home-post-list"/);
+  assert.match(home, /class="archive-entry-content">[^<]*<a class="home-post-link"/);
   assert.doesNotMatch(home, /class="entry(?: |")/);
   assert.match(home, /class="home-post-link"[^>]*>测试博客标题<\/a>/);
   assert.doesNotMatch(home, /测试博客的摘要/);
@@ -23,6 +24,7 @@ test('首页以紧凑列表区分完整文章和轻量内容', async () => {
   assert.match(home, /class="category-pill" href="\/moments\/">时刻<\/a>/);
   assert.match(home, /class="category-pill" href="\/readlater\/">文摘<\/a>/);
   assert.match(css, /\.category-pill\{[^}]*border-radius:999px/);
+  assert.match(css, /\.archive-entry\{[^}]*display:grid[^}]*grid-template-columns:max-content max-content minmax\(0,1fr\)/);
 });
 
 test('文章页支持 Kindle 阅读排版', async () => {
@@ -46,6 +48,7 @@ test('四个分类页按标签输出紧凑归档', async () => {
   const pieces = await page('pieces/index.html');
 
   assert.match(blog, /class="archive-list"/);
+  assert.match(blog, /class="archive-entry-content"/);
   assert.match(moments, /class="archive-list"/);
   assert.match(pieces, /class="archive-list"/);
   assert.match(readlater, /付鹏 2024 年汇丰分享/);

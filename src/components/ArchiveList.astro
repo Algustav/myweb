@@ -35,7 +35,9 @@ const formatDate = (date: Date) => {
       <p class="archive-entry">
         <time datetime={getPostDate(post).toISOString()}>{formatDate(getPostDate(post))}</time>
         <span aria-hidden="true"> - </span>
-        <a href={`/blog/${slug}/`}>{getPostTitle(post)}</a>
+        <span class="archive-entry-content">
+          <a href={`/blog/${slug}/`}>{getPostTitle(post)}</a>
+        </span>
       </p>
     );
   })}
