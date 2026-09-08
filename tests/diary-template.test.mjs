@@ -47,9 +47,9 @@ test('四个分类页按标签输出紧凑归档', async () => {
 
   assert.match(blog, /class="archive-list"/);
   assert.match(moments, /class="archive-list"/);
+  assert.match(pieces, /class="archive-list"/);
   assert.match(readlater, /付鹏 2024 年汇丰分享/);
   assert.doesNotMatch(readlater, /突然我悟了，要做什么不要等/);
-  assert.match(pieces, /还没有 Pieces/);
   assert.doesNotMatch(pieces, /付鹏 2024 年汇丰分享/);
   assert.match(readlater, /2026\/08\/24/);
 });
@@ -67,11 +67,12 @@ test('RSS 订阅源输出文章、正文与标签', async () => {
 
 test('主导航暂时隐藏碎片入口', async () => {
   const home = await page('index.html');
+  const navigation = home.match(/<nav aria-label="主导航">([\s\S]*?)<\/nav>/)?.[1] ?? '';
 
-  assert.match(home, /href="\/blog\/">博客<\/a>/);
-  assert.match(home, /href="\/moments\/">时刻<\/a>/);
-  assert.match(home, /href="\/readlater\/">文摘<\/a>/);
-  assert.doesNotMatch(home, /href="\/pieces\/">碎片<\/a>/);
+  assert.match(navigation, /href="\/blog\/">博客<\/a>/);
+  assert.match(navigation, /href="\/moments\/">时刻<\/a>/);
+  assert.match(navigation, /href="\/readlater\/">文摘<\/a>/);
+  assert.doesNotMatch(navigation, /href="\/pieces\/">碎片<\/a>/);
 });
 
 test('页眉第一行并排显示站点标题和阅读外观按钮，菜单独占第二行', async () => {

@@ -69,11 +69,10 @@ test('秒级文件名保留轻量内容的实际创建时间', () => {
 
 test('只有正文的轻量内容可以构建并显示在首页、归档、文章页和 RSS', async () => {
   const fixture = `---
-kind: moments
+kind: pieces
 title: 不应显示的旧标题
 description: 不应显示的旧摘要
-tags:
-  - moments
+tags: []
 ---
 只写正文的轻量记录，**不需要标题**。
 
@@ -88,7 +87,7 @@ tags:
     assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 
     const home = await readFile(join(projectRoot, 'dist', 'index.html'), 'utf8');
-    const archive = await readFile(join(projectRoot, 'dist', 'moments', 'index.html'), 'utf8');
+    const archive = await readFile(join(projectRoot, 'dist', 'pieces', 'index.html'), 'utf8');
     const article = await readFile(
       join(projectRoot, 'dist', 'blog', parsePath(fixtureName).name, 'index.html'),
       'utf8'
@@ -98,7 +97,7 @@ tags:
     assert.match(lightweightRow, /只写正文的轻量记录，不需要标题。 第一项 第二项/);
     assert.doesNotMatch(lightweightRow, /<h2>|<strong>/);
     assert.doesNotMatch(lightweightRow, /不应显示的旧标题|不应显示的旧摘要/);
-    assert.match(lightweightRow, /class="category-pill" href="\/moments\/">时刻<\/a>/);
+    assert.match(lightweightRow, /class="category-pill" href="\/pieces\/">碎片<\/a>/);
     assert.match(archive, /只写正文的轻量记录，不需要标题。/);
     assert.doesNotMatch(archive, /不应显示的旧标题/);
     assert.match(article, /只写正文的轻量记录，<strong>不需要标题<\/strong>。/);
