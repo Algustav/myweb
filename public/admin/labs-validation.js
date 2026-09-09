@@ -9,6 +9,7 @@ CMS.registerEventListener({
     if (address && !/^(\/(?!\/)|https?:\/\/)[^\s\\]+$/i.test(address)) {
       throw new Error('体验地址须为站内路径（如 /7habits/）或完整的 http(s) 网址。');
     }
-    return data.set('projectUrl', address).set('order', Number(data.get('order') || 0));
+    const cover = String(data.get('cover') || '').trim().replace(/^\/?public\/uploads\//, '/uploads/').replace(/^uploads\//, '/uploads/');
+    return data.set('cover', cover).set('projectUrl', address).set('order', Number(data.get('order') || 0));
   }
 });

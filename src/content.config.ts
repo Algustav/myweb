@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { normalizeLabsCover } from './lib/labsCover';
 
 const blog = defineCollection({
   type: 'content',
@@ -19,7 +20,7 @@ const labs = defineCollection({
     tags: z.array(z.string()).default(['labs']),
     title: z.string().trim().min(1),
     description: z.string().trim().min(1),
-    cover: z.string().trim().min(1),
+    cover: z.string().trim().min(1).transform(normalizeLabsCover),
     projectUrl: z.string().trim().default('').refine(
       (value) => !value || /^(\/(?!\/)|https?:\/\/)[^\s\\]+$/i.test(value),
       '体验地址须为站内路径或完整的 http(s) 网址'

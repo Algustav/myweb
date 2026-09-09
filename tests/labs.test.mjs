@@ -3,6 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { parse } from 'yaml';
+import { normalizeLabsCover } from '../src/lib/labsCover.ts';
 
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
@@ -15,6 +16,8 @@ test('实验室配置与展厅读取同一内容目录，首页保留独立入�
   const listing = await read('dist/labs/index.html');
   assert.match(listing, /href="\/7habits\/"/);
   assert.match(listing, /七个习惯/);
+  assert.match(listing, /href="\/labs\/7habits\/"/);
+  assert.match(listing, /查看全文/);
   assert.match(await read('dist/index.html'), /href="\/labs\/">Labs/);
   assert.doesNotMatch(await read('dist/index.html'), /class="home-post-link"[^>]*>七个习惯/);
 });
@@ -34,4 +37,14 @@ test('后台阻止空项目和危险地址，允许外链、站内地址及纯�
     assert.doesNotThrow(() => handler({ entry: entry(values) }));
   }
   assert.doesNotThrow(() => handler({ entry: entry({}, 'blog') }));
+  const values = { body: '正文', cover: 'public/uploads/cotrisbanner.jpg' };
+  handler({ entry: entry(values) });
+  assert.equal(values.cover, '/uploads/cotrisbanner.jpg');
+});
+
+test('头图兼容仓库路径，保留正确站内路径和外部网址', () => {
+  for (const path of ['public/uploads/cotrisbanner.jpg', '/public/uploads/cotrisbanner.jpg', 'uploads/cotrisbanner.jpg', '/uploads/cotrisbanner.jpg']) {
+    assert.equal(normalizeLabsCover(path), '/uploads/cotrisbanner.jpg');
+  }
+  assert.equal(normalizeLabsCover('https://example.com/public/uploads/banner.jpg'), 'https://example.com/public/uploads/banner.jpg');
 });

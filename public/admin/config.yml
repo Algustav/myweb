@@ -31,7 +31,7 @@ collections:
       - { label: 标签, name: tags, widget: hidden, default: [labs] }
       - { label: 项目名, name: title, widget: string }
       - { label: 项目简介, name: description, widget: text, hint: "建议一到两句话，展示在卡片上。" }
-      - { label: 项目头图, name: cover, widget: image, hint: "建议使用 16:9 的页面截图或项目图片。" }
+      - { label: 项目头图, name: cover, widget: image, hint: "建议使用 16:9 图片。上传后自动生成 /uploads/ 路径；手填 public/uploads/ 也会自动修正。" }
       - label: 体验地址
         name: projectUrl
         widget: string
