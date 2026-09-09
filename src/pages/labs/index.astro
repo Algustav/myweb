@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import LabsLayout from '../../layouts/LabsLayout.astro';
+const projects = (await getCollection('labs')).sort((a, b) => b.data.order - a.data.order || b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || a.id.localeCompare(b.id));
+for (const project of projects) {
+  if (!project.data.projectUrl && !project.body?.trim()) throw new Error(`Labs 项目「${project.data.title}」必须填写体验地址或正文说明。`);
+}
+---
+<LabsLayout>
+  <section class="intro">
+    <p class="eyebrow">VIBE CODING / PLAY & EXPLORE</p>
+    <h1>Al 的实验室<span>.</span></h1>
+    <p class="description">把一些突发奇想，做成能用的小东西。<br />这里收集我的小工具、交互页面，以及还在生长的实验。</p>
+  </section>
+  <section aria-labelledby="projects-heading">
+    <div class="section-heading"><h2 id="projects-heading">所有项目 <span>{projects.length.toString().padStart(2, '0')}</span></h2><p>随手做点有意思的</p></div>
+    <div class="project-grid">
+      {projects.map((project) => (
+        <article class="project-card">
+          <img src={project.data.cover} alt={`${project.data.title}预览`} width="960" height="540" loading="lazy" />
+          <div class="card-body">
+            <h3>{project.data.title}</h3>
+            <p>{project.data.description}</p>
+            <a class="launch" href={project.data.projectUrl || `/labs/${project.slug}/`} aria-label={`打开体验：${project.data.title}`}>打开体验 <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      ))}
+    </div>
+    {projects.length === 0 && <p class="empty">新的实验正在准备中，过些时候来看看。</p>}
+  </section>
+</LabsLayout>
+<style>
+  .intro { padding: 64px 0 50px; }
+  .eyebrow { color: #526f9b; font-size: 11px; font-weight: 600; letter-spacing: 2px; margin: 0 0 14px; }
+  h1 { font-size: clamp(32px, 4vw, 44px); line-height: 1.3; letter-spacing: -1.5px; margin: 0 0 20px; font-weight: 650; }
+  h1 span { color: #507ae6; }
+  .description { color: #637087; line-height: 1.9; margin: 0; }
+  .section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
+  h2 { font-size: 16px; font-weight: 600; margin: 0; }
+  h2 span { margin-left: 10px; color: #6b7a92; font-size: 12px; font-weight: 400; }
+  .section-heading p { color: #738096; font-size: 12px; margin: 0; }
+  .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+  .project-card { min-width: 0; overflow: hidden; background: #ffffffd9; border: 1px solid #fff; border-radius: 18px; box-shadow: 0 3px 8px #304b7010, 0 12px 30px #304b7007; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s, border-color .2s; }
+  .project-card:hover { transform: translateY(-4px); border-color: #c9d8f5; box-shadow: 0 12px 30px #304b7019; }
+  .project-card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid #e9edf5; }
+  .card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  h3 { font-size: 19px; line-height: 1.5; margin: 0 0 10px; font-weight: 600; overflow-wrap: anywhere; }
+  .card-body p { margin: 0 0 26px; color: #657087; font-size: 14px; overflow-wrap: anywhere; }
+  .launch { align-self: flex-start; margin-top: auto; display: inline-flex; align-items: center; gap: 26px; padding: 8px 14px; background: #eef3fd; border: 1px solid #dce6fa; border-radius: 8px; color: #285bb9; text-decoration: none; font-size: 13px; font-weight: 500; }
+  .launch:hover { background: #e1ebfc; }
+  .empty { padding: 36px 0; color: #657087; }
+  @media (max-width: 960px) { .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .project-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } .intro { padding: 42px 0 36px; } .description { font-size: 14px; } .card-body { padding: 22px; } }
+  @media (prefers-reduced-motion: reduce) { .project-card { transition: none; } .project-card:hover { transform: none; } }
+</style>

@@ -34,7 +34,7 @@ test('后台的时刻和碎片只要求填写正文', async () => {
   const config = parseYaml(await readFile(join(projectRoot, 'public', 'admin', 'config.yml'), 'utf8'));
   const collections = Object.fromEntries(config.collections.map((collection) => [collection.name, collection]));
 
-  assert.deepEqual(Object.keys(collections), ['blog', 'moments', 'readlater', 'pieces']);
+  assert.deepEqual(Object.keys(collections), ['labs', 'blog', 'moments', 'readlater', 'pieces']);
   for (const name of ['moments', 'pieces']) {
     const collection = collections[name];
     const visibleFields = collection.fields

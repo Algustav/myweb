@@ -15,6 +15,33 @@ public_folder: /uploads
 publish_mode: simple
 
 collections:
+  - name: labs
+    label: 实验室
+    label_singular: 项目
+    folder: src/content/labs
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    preview_path: "labs/{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [order, pubDate, title]
+    fields:
+      - { label: 内容类型, name: kind, widget: hidden, default: labs }
+      - { label: 标签, name: tags, widget: hidden, default: [labs] }
+      - { label: 项目名, name: title, widget: string }
+      - { label: 项目简介, name: description, widget: text, hint: "建议一到两句话，展示在卡片上。" }
+      - { label: 项目头图, name: cover, widget: image, hint: "建议使用 16:9 的页面截图或项目图片。" }
+      - label: 体验地址
+        name: projectUrl
+        widget: string
+        required: false
+        hint: "填写 /7habits/ 或完整的 https:// 网址；留空时进入正文详情页。"
+        pattern: ['^(\/(?!\/)|https?:\/\/)[^\s\\]+$', '请填写站内路径或完整的 http(s) 网址']
+      - { label: 发布日期, name: pubDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false, format: YYYY-MM-DD }
+      - { label: 排序值, name: order, widget: number, value_type: int, default: 0, required: false, hint: "数值越大越靠前；相同数值按发布日期倒序。" }
+      - { label: 正文说明, name: body, widget: markdown, required: false, hint: "体验地址和正文至少填写一项。" }
+
   - name: blog
     label: 博客
     label_singular: 博客文章

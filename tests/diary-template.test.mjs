@@ -17,7 +17,7 @@ test('首页以紧凑列表区分完整文章和轻量内容', async () => {
   assert.match(home, /class="archive-list home-post-list"/);
   assert.match(home, /class="archive-entry-content">[^<]*<a class="home-post-link"/);
   assert.doesNotMatch(home, /class="entry(?: |")/);
-  assert.match(home, /class="home-post-link"[^>]*>测试博客标题<\/a>/);
+  assert.match(home, /class="home-post-link"[^>]*>重回博客系统？！<\/a>/);
   assert.doesNotMatch(home, /测试博客的摘要/);
   assert.match(home, /class="home-post-link"[^>]*>开始看东野圭吾的《白夜行》/);
   assert.match(home, /class="category-pill" href="\/blog\/">博客<\/a>/);

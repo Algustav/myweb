@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import LabsLayout from '../../layouts/LabsLayout.astro';
+export async function getStaticPaths() {
+  return (await getCollection('labs')).map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<LabsLayout title={`${project.data.title} · Labs`} description={project.data.description}>
+  <article>
+    <a class="back" href="/labs/">← 所有项目</a>
+    <h1>{project.data.title}</h1>
+    <p class="summary">{project.data.description}</p>
+    <img class="cover" src={project.data.cover} alt={`${project.data.title}预览`} width="960" height="540" />
+    {project.data.projectUrl && <p><a class="launch" href={project.data.projectUrl}>打开体验 ↗</a></p>}
+    <div class="prose"><Content /></div>
+  </article>
+</LabsLayout>
+<style>
+  article { max-width: 800px; margin: auto; padding-top: 44px; }
+  .back { color: #536b96; text-decoration: none; font-size: 14px; }
+  h1 { font-size: clamp(28px, 5vw, 40px); margin: 28px 0 12px; line-height: 1.4; overflow-wrap: anywhere; }
+  .summary { color: #657087; }
+  .cover { width: 100%; height: auto; border-radius: 16px; margin: 20px 0; }
+  .launch { display: inline-block; border-radius: 8px; padding: 10px 20px; background: #285bb9; color: white; text-decoration: none; }
+  .prose { line-height: 1.9; overflow-wrap: anywhere; }
+  .prose :global(img) { max-width: 100%; height: auto; }
+  .prose :global(pre) { padding: 20px; overflow-x: auto; border-radius: 10px; }
+  .prose :global(table) { display: block; overflow-x: auto; }
+</style>

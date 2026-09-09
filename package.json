@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test:template": "npm run build && node --test tests/content-category.test.mjs tests/diary-template.test.mjs tests/appearance.test.mjs && node --test tests/lightweight-post.test.mjs"
+    "test:template": "npm run build && node --test tests/content-category.test.mjs tests/diary-template.test.mjs tests/appearance.test.mjs tests/labs.test.mjs && node --test tests/lightweight-post.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
