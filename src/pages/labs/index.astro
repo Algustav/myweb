@@ -25,7 +25,7 @@ for (const project of projects) {
             <p>{project.data.description}</p>
             <div class="card-actions">
               {project.data.projectUrl && <a class="launch" href={project.data.projectUrl} aria-label={`打开体验：${project.data.title}`}>打开体验 <span aria-hidden="true">↗</span></a>}
-              <a class:list={['read-more', { launch: !project.data.projectUrl }]} href={`/labs/${project.slug}/`}>查看全文 <span aria-hidden="true">→</span></a>
+              <a class="read-more" href={`/labs/${project.slug}/`}>查看全文 <span aria-hidden="true">→</span></a>
             </div>
           </div>
         </article>
@@ -53,7 +53,7 @@ for (const project of projects) {
   h3 a { text-decoration: none; }
   h3 a:hover { color: #285bb9; }
   .card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: auto; }
-  .read-more { color: #526885; font-size: 13px; text-decoration: none; }
+  .read-more { margin-left: auto; color: #526885; font-size: 13px; text-decoration: none; }
   .read-more:hover { color: #285bb9; text-decoration: underline; }
   .card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
   h3 { font-size: 19px; line-height: 1.5; margin: 0 0 10px; font-weight: 600; overflow-wrap: anywhere; }
