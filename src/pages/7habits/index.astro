@@ -1,0 +1,423 @@
+---
+import '@fontsource-variable/noto-sans-sc';
+
+const habits = [
+  {
+    id: 'proactive',
+    number: '01',
+    group: '个人成功',
+    title: '积极主动',
+    tagline: '在刺激与回应之间，保留选择。',
+    summary: '积极主动，是把注意力从“别人应该怎样”转回“我现在能做什么”。环境会限制选择，但很少能替你决定态度、行动和下一步。',
+    example: '项目临时延期时，与其反复抱怨上游失误，不如先列出可控制的部分：调整交付顺序、同步风险，并给出两个可执行的新方案。',
+    prompt: '此刻，哪一步仍在我的影响圈内？',
+    color: 'blue'
+  },
+  {
+    id: 'begin',
+    number: '02',
+    group: '个人成功',
+    title: '以终为始',
+    tagline: '先看见目的地，再决定怎样出发。',
+    summary: '先定义想要的结果和坚持的原则，再安排眼前的行动。它让衡量成功的标准来自你真正重视的事，而不只是完成了多少任务。',
+    example: '准备换工作时，先写下三年后希望拥有的能力、生活节奏和关系，再用这些标准筛选机会，而不只比较眼前薪资。',
+    prompt: '如果这件事做得很好，最终会是什么样？',
+    color: 'violet'
+  },
+  {
+    id: 'priority',
+    number: '03',
+    group: '个人成功',
+    title: '要事第一',
+    tagline: '让重要的事，先进入日程。',
+    summary: '把时间留给重要但不紧急的事情，例如学习、规划、健康和关系维护。真正的优先级，要通过日程和取舍体现。',
+    example: '每天消息很多时，先预留九十分钟完成最重要的方案，再统一处理通知；紧急请求则按影响判断，而不是来一个接一个。',
+    prompt: '今天只完成一件事，哪件最值得？',
+    color: 'cyan'
+  },
+  {
+    id: 'winwin',
+    number: '04',
+    group: '公众成功',
+    title: '双赢思维',
+    tagline: '寻找双方都愿意长期接受的结果。',
+    summary: '双赢不是各退一步，而是先尊重双方的核心利益，再共同设计更好的选择。若条件不成立，也可以坦诚地选择暂不合作。',
+    example: '讨论项目资源时，不把对方当成竞争者，而是公开各自目标和限制，重新组合时间、人力与范围，让双方的关键目标都能实现。',
+    prompt: '对方真正需要什么？我真正需要什么？',
+    color: 'blue'
+  },
+  {
+    id: 'understand',
+    number: '05',
+    group: '公众成功',
+    title: '知彼解己',
+    tagline: '先理解，再寻求被理解。',
+    summary: '先带着理解对方的目的去倾听，而不是边听边准备反驳。确认自己准确理解之后，再清楚表达自己的事实、感受与诉求。',
+    example: '同事反对你的方案时，先复述他的担忧并请他确认：“你最担心的是上线后的维护成本，对吗？”再说明你的取舍依据。',
+    prompt: '我听见的是对方的话，还是自己的判断？',
+    color: 'violet'
+  },
+  {
+    id: 'synergy',
+    number: '06',
+    group: '公众成功',
+    title: '统合综效',
+    tagline: '让差异成为第三种可能。',
+    summary: '不急着消除分歧，而是利用不同经验、视角和能力，创造任何一方独自都想不到的方案。差异是协作的原料。',
+    example: '产品希望体验完整，工程担心开发周期。双方不在两个原方案中二选一，而是把核心体验做成小范围试点，用真实反馈决定后续投入。',
+    prompt: '两种不同意见能组合出什么新方案？',
+    color: 'cyan'
+  },
+  {
+    id: 'renewal',
+    number: '07',
+    group: '持续更新',
+    title: '不断更新',
+    tagline: '更新自己，才能持续前行。',
+    summary: '从身体、心智、情感关系与内在价值四个方面定期恢复和成长。更新不是工作之外的奖励，而是长期效能的来源。',
+    example: '为一周安排运动、深度阅读、一次真诚交流和一段安静复盘。它们不会立刻产生交付物，却决定你未来工作的质量。',
+    prompt: '我最需要更新的维度是哪一个？',
+    color: 'green'
+  }
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="用解释与生活实例，理解高效能人士的七个习惯。" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>七个习惯｜由内而外的成长路径</title>
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true">
+      <defs>
+        <linearGradient id="blueFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6EC8FF"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+        <linearGradient id="violetFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C4B5FD"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>
+        <linearGradient id="cyanFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#67E8F9"/><stop offset="1" stop-color="#0891B2"/></linearGradient>
+        <linearGradient id="greenFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#86EFAC"/><stop offset="1" stop-color="#059669"/></linearGradient>
+        <symbol id="icon-proactive" viewBox="0 0 64 64">
+          <path d="M32 8a24 24 0 1 0 20.8 12" fill="none" stroke="url(#blueFill)" stroke-width="6" stroke-linecap="round"/>
+          <path d="M31 10v22M31 32 19 23M31 32l13-10" fill="none" stroke="#2563EB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M26 51V38c0-2 1.4-3.6 3.2-3.6s3.2 1.6 3.2 3.6v4-8.7c0-2 1.4-3.5 3.2-3.5s3.2 1.5 3.2 3.5V42l2.1-2.5c1.2-1.4 3.3-1.5 4.6-.2 1 1 1.2 2.6.5 3.8l-5.2 9" fill="#DCEBFF" stroke="#0F57CC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-begin" viewBox="0 0 64 64">
+          <path d="M13 54c4-13 12-20 24-20s18 8 21 20H13Z" fill="url(#cyanFill)" opacity=".88"/>
+          <path d="M27 48V13" stroke="#255EDB" stroke-width="5" stroke-linecap="round"/>
+          <path d="M29 15h22l-5 8 5 8H29V15Z" fill="url(#blueFill)"/>
+          <path d="m18 8 1.7 3.6L23 13l-3.3 1.4L18 18l-1.6-3.6L13 13l3.4-1.4L18 8Z" fill="#FBBF24"/>
+        </symbol>
+        <symbol id="icon-priority" viewBox="0 0 64 64">
+          <path d="M7 34 22 28l15 6-15 7-15-7Z" fill="#A5F3FC"/><path d="M7 34v15l15 7V41L7 34Z" fill="#22B8CF"/><path d="m22 41 15-7v15l-15 7V41Z" fill="#0E7490"/>
+          <path d="m29 15 14-6 14 6-14 6-14-6Z" fill="#93C5FD"/><path d="M29 15v18l14 6V21l-14-6Z" fill="#3B82F6"/><path d="m43 21 14-6v18l-14 6V21Z" fill="#1D4ED8"/>
+        </symbol>
+        <symbol id="icon-winwin" viewBox="0 0 64 64">
+          <path d="M27 21H20a11 11 0 0 0 0 22h9c8 0 13-7 13-11s-5-11-13-11h-2" fill="none" stroke="url(#cyanFill)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M37 43h7a11 11 0 0 0 0-22h-9c-8 0-13 7-13 11s5 11 13 11h2" fill="none" stroke="url(#blueFill)" stroke-width="8" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-understand" viewBox="0 0 64 64">
+          <path d="M8 13h31a6 6 0 0 1 6 6v17a6 6 0 0 1-6 6H24L13 51v-9H8a6 6 0 0 1-6-6V19a6 6 0 0 1 6-6Z" fill="url(#blueFill)"/>
+          <path d="M13 24h21M13 31h13" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M53 25c7 2 9 11 4 16-3 3-6 3-6 8 0 4-3 7-7 7-3 0-6-2-7-5" fill="none" stroke="#7C3AED" stroke-width="4" stroke-linecap="round"/>
+          <path d="M51 33c3 1 3 5 1 7-2 2-4 2-4 5" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-synergy" viewBox="0 0 64 64">
+          <path d="M6 21h16c9 0 9 22 19 22h17" fill="none" stroke="url(#blueFill)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M6 43h16c9 0 9-22 19-22h17" fill="none" stroke="url(#cyanFill)" stroke-width="10" stroke-linecap="round"/>
+          <path d="m32 7 2.4 6.1L41 15l-6.6 1.9L32 23l-2.4-6.1L23 15l6.6-1.9L32 7Z" fill="#FBBF24"/>
+        </symbol>
+        <symbol id="icon-renewal" viewBox="0 0 64 64">
+          <path d="M51 24A21 21 0 0 0 15 15l-4 5" fill="none" stroke="url(#blueFill)" stroke-width="6" stroke-linecap="round"/><path d="m9 11 2 9 9-2" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13 40a21 21 0 0 0 36 9l4-5" fill="none" stroke="url(#greenFill)" stroke-width="6" stroke-linecap="round"/><path d="m55 53-2-9-9 2" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M31 42c-8-9-2-18 12-19 0 13-4 20-12 19Z" fill="url(#greenFill)"/><path d="M31 42c2-6 5-10 10-15" stroke="#047857" stroke-width="2" stroke-linecap="round"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="回到页面顶部">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span>七个习惯</span>
+      </a>
+      <nav aria-label="页面导航">
+        <a href="#overview">总览</a>
+        <a href="#habits">七个习惯</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换深浅色主题" title="切换深浅色主题">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <h1 id="hero-title"><span>从依赖，</span><br /><span>到独立，</span><span class="hero-last-line">再到互赖</span></h1>
+          <p>七个习惯不是七条分散的技巧，而是一条由内而外的成长路径。</p>
+          <a class="primary-button" href="#overview">开始探索 <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="arch"><div class="land"></div></div>
+          <div class="stairs">
+            <i style="--n:0"></i><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i style="--n:4"></i>
+          </div>
+          <p>更好的自己<br />更好的关系<br />更美好的世界</p>
+        </div>
+      </section>
+
+      <section class="journey reveal" id="overview" aria-labelledby="journey-title">
+        <h2 id="journey-title" class="sr-only">七个习惯成长路径</h2>
+        <div class="stage">
+          <span class="stage-icon single" aria-hidden="true"></span>
+          <div><strong>个人成功</strong><small>习惯 1–3</small><p>从依赖到独立<br />建立自我掌控的人生</p></div>
+        </div>
+        <span class="journey-arrow" aria-hidden="true">›</span>
+        <div class="stage">
+          <span class="stage-icon people" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div><strong>公众成功</strong><small>习惯 4–6</small><p>从独立到互赖<br />在关系中创造更大价值</p></div>
+        </div>
+        <span class="journey-arrow" aria-hidden="true">›</span>
+        <div class="stage">
+          <span class="stage-icon leaf" aria-hidden="true"></span>
+          <div><strong>持续更新</strong><small>习惯 7</small><p>让成长成为一种生活方式<br />不断迈向更好的自己</p></div>
+        </div>
+      </section>
+
+      <section class="habits" id="habits" aria-label="七个习惯详解">
+        <aside class="habit-nav" aria-label="习惯快速导航">
+          <span>七个习惯</span>
+          {habits.map((habit) => <a href={`#${habit.id}`} data-target={habit.id}><b>{habit.number}</b>{habit.title}</a>)}
+        </aside>
+
+        <div class="habit-list">
+          {habits.map((habit, index) => (
+            <article id={habit.id} class:list={['habit', `tone-${habit.color}`, { elevated: index % 2 === 1 }]}>
+              <div class="habit-index"><span>{habit.number}</span></div>
+              <div class="habit-heading reveal">
+                <div class="habit-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><use href={`#icon-${habit.id}`}></use></svg></div>
+                <div>
+                  <small>{habit.group}</small>
+                  <h2>{habit.title}</h2>
+                  <p>{habit.tagline}</p>
+                </div>
+              </div>
+              <div class="habit-detail reveal">
+                <div>
+                  <h3>核心解释</h3>
+                  <p>{habit.summary}</p>
+                </div>
+                <div>
+                  <h3>生活举例</h3>
+                  <p>{habit.example}</p>
+                </div>
+                <blockquote><span>想一想</span>{habit.prompt}</blockquote>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="closing reveal">
+        <div class="closing-art" aria-hidden="true"><span></span><i></i></div>
+        <div>
+          <h2>今天，先练习一个习惯</h2>
+          <p>改变不必一蹴而就。从一个具体情境、一个小小的选择开始，成长正在发生。</p>
+          <a class="primary-button" href="#proactive">从第一个开始 <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a href="#top">七个习惯</a>
+      <span>由内而外，持续成长。</span>
+      <a href="#top" class="back-top" aria-label="返回顶部">↑</a>
+    </footer>
+
+    <script>
+      const root = document.documentElement;
+      const themeButton = document.querySelector('.theme-toggle');
+      const savedTheme = localStorage.getItem('seven-habits-theme');
+      if (savedTheme === 'dark') root.dataset.theme = 'dark';
+      themeButton?.addEventListener('click', () => {
+        root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('seven-habits-theme', root.dataset.theme);
+      });
+
+      const progress = document.querySelector('.progress span');
+      const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (progress) progress.style.width = `${max ? (window.scrollY / max) * 100 : 0}%`;
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+      const navLinks = [...document.querySelectorAll('.habit-nav a')];
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => link.classList.toggle('active', link.dataset.target === entry.target.id));
+        });
+      }, { rootMargin: '-30% 0px -55% 0px' });
+      document.querySelectorAll('.habit').forEach((section) => sectionObserver.observe(section));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #f8faff;
+    --surface: rgba(255, 255, 255, 0.84);
+    --surface-solid: #ffffff;
+    --text: #10264b;
+    --muted: #60708c;
+    --subtle: #8896ad;
+    --line: rgba(104, 134, 182, 0.2);
+    --blue: #0f6cbd;
+    --blue-bright: #147efb;
+    --shadow: 0 12px 36px rgba(32, 79, 145, 0.09), 0 2px 8px rgba(32, 79, 145, 0.05);
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+  :root[data-theme='dark'] {
+    --bg: #101722;
+    --surface: rgba(28, 39, 55, 0.86);
+    --surface-solid: #1c2737;
+    --text: #ecf4ff;
+    --muted: #b0bdd1;
+    --subtle: #8493aa;
+    --line: rgba(164, 190, 227, 0.16);
+    --blue: #65b7ff;
+    --blue-bright: #3b91f7;
+    --shadow: 0 16px 42px rgba(0, 0, 0, 0.25);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 90px; }
+  body {
+    margin: 0;
+    min-width: 320px;
+    background:
+      radial-gradient(circle at 82% 3%, rgba(153, 204, 255, 0.18), transparent 24rem),
+      var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC Variable', 'Segoe UI Variable', 'Microsoft YaHei UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    transition: background-color 220ms ease, color 220ms ease;
+  }
+  a { color: inherit; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  .icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .progress { position: fixed; z-index: 100; top: 0; left: 0; right: 0; height: 3px; background: transparent; }
+  .progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #0f6cbd, #4aa8ff, #7c3aed); box-shadow: 0 0 12px rgba(20, 126, 251, .5); }
+  .topbar {
+    position: sticky; z-index: 90; top: 0;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    height: 72px; padding: 0 max(28px, calc((100vw - 1280px) / 2));
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 76%, transparent);
+    backdrop-filter: blur(24px) saturate(150%);
+  }
+  .brand { display: inline-flex; align-items: center; gap: 11px; width: max-content; font-size: 17px; font-weight: 720; text-decoration: none; letter-spacing: .02em; }
+  .brand-mark { position: relative; display: flex; align-items: flex-end; gap: 2px; width: 23px; height: 23px; padding: 3px; border-radius: 7px; background: linear-gradient(145deg, #dbeeff, #a9d3ff); box-shadow: inset 0 0 0 1px rgba(15,108,189,.1); }
+  .brand-mark i { display: block; width: 5px; border-radius: 3px; background: linear-gradient(#3da2ff, #1268d4); }
+  .brand-mark i:nth-child(1) { height: 7px; }.brand-mark i:nth-child(2) { height: 12px; }.brand-mark i:nth-child(3) { height: 17px; }
+  .topbar nav { display: flex; align-self: stretch; gap: 30px; color: var(--muted); font-size: 14px; }
+  .topbar nav a { position: relative; display: grid; place-items: center; text-decoration: none; }
+  .topbar nav a:first-child { color: var(--blue); font-weight: 650; }
+  .topbar nav a:first-child::after { position: absolute; bottom: 0; width: 100%; height: 2px; border-radius: 2px 2px 0 0; background: var(--blue-bright); content: ''; }
+  .theme-toggle { justify-self: end; display: grid; width: 36px; height: 36px; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); cursor: pointer; box-shadow: 0 2px 7px rgba(24,73,136,.05); }
+  .theme-toggle svg { width: 19px; height: 19px; }
+  .theme-toggle:hover { color: var(--blue); background: var(--surface-solid); }
+  main { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+  .hero { min-height: 570px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 44px; padding: 66px 18px 48px; overflow: hidden; }
+  .hero-copy { position: relative; z-index: 2; }
+  .hero h1 { max-width: 760px; margin: 0; font-size: clamp(48px, 5.5vw, 78px); line-height: 1.13; letter-spacing: -.055em; font-weight: 760; }
+  .hero h1 span { white-space: nowrap; }
+  .hero-copy > p { max-width: 630px; margin: 24px 0 30px; color: var(--muted); font-size: clamp(18px, 1.55vw, 22px); line-height: 1.65; }
+  .primary-button { display: inline-flex; align-items: center; gap: 18px; padding: 11px 19px; border: 1px solid rgba(255,255,255,.35); border-radius: 9px; background: linear-gradient(180deg, #1684ff, #086fd9); color: white; box-shadow: 0 7px 18px rgba(15,108,189,.23), inset 0 1px rgba(255,255,255,.25); font-size: 15px; font-weight: 620; text-decoration: none; transition: transform 160ms ease, box-shadow 160ms ease; }
+  .primary-button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15,108,189,.3), inset 0 1px rgba(255,255,255,.25); }
+  .hero-visual { position: relative; min-height: 440px; }
+  .hero-visual::before { position: absolute; inset: 15% -25% -10% 0; border-radius: 50%; background: radial-gradient(circle, rgba(126,184,255,.22), transparent 68%); content: ''; filter: blur(10px); }
+  .arch { position: absolute; top: 8px; right: 12%; width: 162px; height: 300px; padding: 18px; border-radius: 84px 84px 16px 16px; background: linear-gradient(90deg, rgba(255,255,255,.46), rgba(164,200,247,.36)); box-shadow: 18px 16px 30px rgba(74,120,183,.12), inset 8px 0 14px rgba(255,255,255,.5); }
+  .arch::before { position: absolute; inset: 30px 32px 26px; border-radius: 62px 62px 8px 8px; background: linear-gradient(#d9efff 0 48%, #fbf4d7 49% 60%, #accce7 61% 73%, #79a9cc 74%); content: ''; box-shadow: inset 0 0 24px rgba(255,255,255,.6); }
+  .land { position: absolute; z-index: 1; bottom: 34px; left: 30px; width: 102px; height: 32px; border-radius: 80% 20% 8px 8px; background: #81a8b9; opacity: .65; }
+  .sun { position: absolute; z-index: 2; top: 104px; right: calc(12% + 63px); width: 34px; height: 34px; border-radius: 50%; background: #fff3c4; box-shadow: 0 0 25px rgba(255,235,158,.8); }
+  .stairs { position: absolute; z-index: 4; right: 15%; bottom: 2%; width: 300px; height: 230px; transform: skewY(-1deg); }
+  .stairs i { position: absolute; right: calc(var(--n) * 38px); bottom: calc(var(--n) * 34px); width: calc(260px - var(--n) * 33px); height: 42px; border-radius: 4px 4px 9px 9px; background: linear-gradient(180deg, rgba(246,251,255,.98), rgba(174,207,251,.9)); border: 1px solid rgba(255,255,255,.72); box-shadow: 0 14px 22px rgba(63,111,179,.13), inset 0 1px white; }
+  .hero-visual p { position: absolute; right: 0; bottom: 25%; margin: 0; color: var(--subtle); font-size: 13px; line-height: 2; }
+  .journey { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 26px; margin: 0 0 68px; padding: 28px 32px; border: 1px solid rgba(136,169,214,.18); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.8); backdrop-filter: blur(20px); }
+  .stage { display: flex; align-items: center; gap: 17px; }
+  .stage-icon { flex: 0 0 58px; width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(145deg, #eef7ff, #cbe6ff); box-shadow: inset 0 0 0 1px rgba(48,127,219,.08); }
+  .stage-icon.single { position: relative; }
+  .stage-icon.single::before { position: absolute; top: 12px; left: 23px; width: 12px; height: 12px; border-radius: 50%; background: #1684ff; box-shadow: 0 3px 7px rgba(22,132,255,.3); content: ''; }
+  .stage-icon.single::after { position: absolute; left: 16px; bottom: 10px; width: 26px; height: 22px; border-radius: 13px 13px 7px 7px; background: linear-gradient(#4aa8ff,#2563eb); content: ''; }
+  .stage-icon.people { display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding-bottom: 13px; background: linear-gradient(145deg,#f4f0ff,#ddd3ff); }
+  .stage-icon.people i { width: 12px; height: 23px; border-radius: 8px 8px 4px 4px; background: linear-gradient(#a78bfa,#7c3aed); }
+  .stage-icon.people i:nth-child(2) { height: 30px; }.stage-icon.people i:nth-child(3) { height: 20px; }
+  .stage-icon.leaf { position: relative; background: linear-gradient(145deg,#e6fcfb,#bcefee); }
+  .stage-icon.leaf::before,.stage-icon.leaf::after { position: absolute; bottom: 17px; width: 20px; height: 28px; background: linear-gradient(#34d399,#0891b2); content:''; }
+  .stage-icon.leaf::before { left: 13px; border-radius: 17px 3px 17px 3px; transform: rotate(-16deg); }.stage-icon.leaf::after { right: 12px; border-radius: 3px 17px 3px 17px; transform: rotate(14deg); }
+  .stage strong { font-size: 16px; }.stage small { margin-left: 7px; color: var(--subtle); }.stage p { margin: 3px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+  .journey-arrow { color: #8ea3bf; font-size: 40px; font-weight: 260; }
+  .habits { position: relative; display: grid; grid-template-columns: 170px 1fr; gap: 34px; }
+  .habit-nav { position: sticky; top: 102px; align-self: start; display: flex; flex-direction: column; gap: 5px; padding: 12px 0; }
+  .habit-nav > span { margin: 0 0 9px 13px; color: var(--subtle); font-size: 12px; font-weight: 650; letter-spacing: .12em; }
+  .habit-nav a { display: flex; gap: 10px; padding: 8px 12px; border-radius: 8px; color: var(--muted); font-size: 13px; text-decoration: none; transition: background 150ms ease, color 150ms ease; }
+  .habit-nav a b { color: var(--subtle); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .habit-nav a:hover { background: rgba(115,170,235,.1); color: var(--text); }
+  .habit-nav a.active { background: rgba(15,108,189,.11); color: var(--blue); font-weight: 650; }
+  .habit-list { position: relative; }
+  .habit-list::before { position: absolute; z-index: -1; top: 20px; bottom: 80px; left: 24px; width: 1px; background: linear-gradient(#5ca9ff, #a88af2, #42c9c7, #70cf9c); opacity: .42; content: ''; }
+  .habit { position: relative; display: grid; grid-template-columns: 54px minmax(230px, .72fr) minmax(360px, 1.25fr); gap: 26px; align-items: center; min-height: 286px; padding: 35px 34px 35px 0; border-radius: 17px; }
+  .habit.elevated { background: linear-gradient(105deg, transparent 2%, color-mix(in srgb, var(--surface-solid) 88%, #dcebff) 20%, var(--surface) 100%); border: 1px solid rgba(124,159,207,.1); box-shadow: 0 8px 24px rgba(39,83,146,.045); }
+  .habit-index { align-self: stretch; position: relative; display: flex; justify-content: center; }
+  .habit-index span { position: sticky; top: 91px; display: grid; width: 48px; height: 48px; place-items: center; border: 5px solid var(--bg); border-radius: 50%; background: #e1efff; color: #176dc8; box-shadow: 0 2px 7px rgba(38,103,188,.1); font-size: 13px; font-weight: 700; }
+  .tone-violet .habit-index span { background: #eee8ff; color: #7046d3; }.tone-cyan .habit-index span { background: #ddf7f7; color: #07818a; }.tone-green .habit-index span { background: #def7e7; color: #087b52; }
+  .habit-heading { display: flex; align-items: center; gap: 22px; }
+  .habit-icon { flex: 0 0 94px; display: grid; width: 94px; height: 94px; place-items: center; border: 1px solid rgba(82,137,207,.1); border-radius: 50%; background: radial-gradient(circle at 36% 28%, rgba(255,255,255,.98), rgba(201,226,255,.68)); box-shadow: 0 12px 28px rgba(54,112,190,.12), inset 0 1px white; }
+  .habit-icon svg { width: 66px; height: 66px; filter: drop-shadow(0 5px 5px rgba(48,97,172,.16)); }
+  .habit-heading small { color: var(--subtle); font-size: 11px; letter-spacing: .11em; }
+  .habit-heading h2 { margin: 1px 0 5px; font-size: clamp(27px, 2.4vw, 36px); line-height: 1.25; letter-spacing: -.035em; }
+  .habit-heading p { margin: 0; color: var(--muted); font-size: 15px; }
+  .habit-detail { display: grid; gap: 17px; padding-left: 25px; border-left: 1px solid var(--line); }
+  .habit-detail h3 { margin: 0 0 4px; font-size: 14px; line-height: 1.5; }
+  .habit-detail p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.85; }
+  .habit-detail blockquote { margin: 0; padding: 9px 13px; border: 0; border-radius: 8px; background: rgba(79,139,218,.07); color: var(--text); font-size: 13px; }
+  .habit-detail blockquote span { margin-right: 10px; color: var(--blue); font-size: 11px; font-weight: 700; }
+  .closing { position: relative; display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; align-items: center; min-height: 280px; margin: 76px 0 54px 204px; padding: 28px 54px 28px 30px; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
+  .closing-art { position: relative; align-self: stretch; min-height: 210px; overflow: hidden; border-radius: 13px; background: linear-gradient(#edf7ff 0 42%, #d9eafa 43% 54%, #9fbfd7 55% 65%, #759cb9 66%); }
+  .closing-art::before,.closing-art::after { position: absolute; bottom: 35%; width: 85%; height: 55%; border-radius: 70% 70% 0 0; background: #b6cee2; content:''; filter: blur(1px); opacity:.75; }
+  .closing-art::before { left:-24%; transform:rotate(6deg); }.closing-art::after { right:-36%; background:#89adc8; transform:rotate(-9deg); }
+  .closing-art span { position:absolute; z-index:2; bottom:25%; left:0; right:0; height:35px; background:linear-gradient(rgba(255,255,255,.65),rgba(120,175,211,.35)); }
+  .closing-art i { position:absolute; z-index:2; top:34px; right:21%; width:46px; height:46px; border-radius:50%; background:#fff1c9; box-shadow:0 0 30px #fff0bd; }
+  .closing h2 { margin: 0 0 10px; font-size: clamp(27px,3vw,38px); line-height:1.3; letter-spacing:-.035em; }
+  .closing p { margin:0 0 21px; color:var(--muted); font-size:15px; }
+  footer { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; max-width:1280px; margin:0 auto; padding:26px 28px 38px; border-top:1px solid var(--line); color:var(--subtle); font-size:12px; }
+  footer > a:first-child { color:var(--text); font-size:14px; font-weight:700; text-decoration:none; }
+  .back-top { justify-self:end; display:grid; width:34px; height:34px; place-items:center; border-radius:50%; background:rgba(92,150,220,.1); color:var(--blue); text-decoration:none; }
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity 600ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1); }
+  .reveal.is-visible { opacity:1; transform:translateY(0); }
+  :focus-visible { outline:3px solid color-mix(in srgb, var(--blue-bright) 45%, transparent); outline-offset:3px; }
+  @media (prefers-reduced-motion: reduce) { :root{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.primary-button{transition:none} }
+  @media (max-width: 980px) {
+    .hero { grid-template-columns:1fr; padding-top:72px; }.hero-visual { min-height:380px; margin-top:-70px; opacity:.8; transform:translateX(24%); }.journey { grid-template-columns:1fr; }.journey-arrow{display:none}.habits{grid-template-columns:1fr}.habit-nav{display:none}.habit{grid-template-columns:50px minmax(210px,.75fr) 1.25fr}.closing{margin-left:0}
+  }
+  @media (max-width: 720px) {
+    .topbar{grid-template-columns:1fr auto;height:62px;padding:0 18px}.topbar nav{display:none}.theme-toggle{grid-column:2}.brand{grid-row:1;grid-column:1}.hero{min-height:660px;padding:54px 0 10px}.hero h1{font-size:clamp(42px,13vw,60px)}.hero-last-line{display:block}.hero-copy>p{font-size:17px}.hero-visual{min-height:300px;margin-top:-10px;transform:translateX(14%) scale(.82);transform-origin:left top}.journey{margin-top:-35px;padding:22px;gap:21px}.stage{align-items:flex-start}.habits{margin:0 -10px}.habit{grid-template-columns:42px 1fr;gap:14px;min-height:0;padding:42px 10px 42px 0}.habit.elevated{padding-right:18px}.habit-index span{width:40px;height:40px;border-width:4px}.habit-heading{gap:17px}.habit-icon{width:76px;height:76px;flex-basis:76px}.habit-icon svg{width:54px;height:54px}.habit-heading h2{font-size:27px}.habit-detail{grid-column:2;padding:2px 0 0;border-left:0}.habit-list::before{left:20px}.closing{grid-template-columns:1fr;margin:42px 0;padding:18px}.closing-art{min-height:170px}.closing h2{font-size:28px}footer{grid-template-columns:1fr auto}footer>span{display:none}main{padding:0 18px}
+  }
+</style>
