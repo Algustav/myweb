@@ -1,9 +1,10 @@
 ---
-title: '理解异类智能：从《An Alien Mind》看 AI 的四种不对称'
-description: '从能力、价值、可见性与速度四种不对称，理解目标对齐、思维链监控、递归自我改进，以及拟人化如何造成系统性误判。'
-pubDate: 2026-09-11
 kind: readlater
-tags: ['人工智能', 'AI安全', '对齐', '递归自我改进', '阅读笔记']
+title: 理解异类智能：从《An Alien Mind》看 AI 的四种不对称
+description: 从能力、价值、可见性与速度四种不对称，理解目标对齐、思维链监控、递归自我改进，以及拟人化如何造成系统性误判。
+pubDate: 2026-09-11
+tags:
+  - readlater
 ---
 
 Jakub Pachocki 于 2026 年 9 月 6 日发表的《An Alien Mind》，把几个往往分开讨论的问题放进了同一个视野：机器智能与人的差异、价值对齐的泛化难题、思维链监控的局限，以及 AI 参与自身研发带来的加速。原文的关切，是如何在能力继续增长时保留人类的监督与控制，并让发展速度受到安全把握的约束。[原文：An Alien Mind](https://openai.com/index/an-alien-mind/)
