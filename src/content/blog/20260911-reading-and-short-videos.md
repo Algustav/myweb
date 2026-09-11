@@ -1,7 +1,7 @@
 ---
 kind: readlater
-title: "为什么阅读后满足，刷短视频后却空虚？"
-description: "关于阅读与无限信息流的体验差异：积累、结束感、注意力、主动性与时间的意义。"
+title: 古典阅读与现代社媒，满足与空虚
+description: 关于阅读与无限信息流的体验差异：积累、结束感、注意力、主动性与时间的意义。
 pubDate: 2026-09-11
 tags:
   - readlater
