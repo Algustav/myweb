@@ -1,0 +1,47 @@
+---
+import LabsLayout from '../../../layouts/LabsLayout.astro';
+---
+<LabsLayout title="高一数学实验室 · Al / Labs" description="10 个可操作的数学实验：拖动参数，观察图像，从预测走向理解。">
+  <header class="math-intro"><p class="eyebrow">MATH LAB / 高一数学</p><h1>让数学，动起来<span>。</span></h1><p>先预测，再调整，最后试着解释。10 个小实验，把解析式与图像连起来。</p></header>
+  <div class="math-shell" id="math-lab">
+    <aside aria-label="选择数学实验"><h2>探索目录 <span>10</span></h2><div id="experiment-list"></div></aside>
+    <section class="experiment" aria-labelledby="experiment-title">
+      <div class="experiment-header"><div><p id="topic" class="eyebrow"></p><h2 id="experiment-title"></h2></div><button id="reset" type="button">重置参数</button></div>
+      <p id="experiment-description"></p>
+      <div class="formula" id="formula" aria-live="polite"></div>
+      <div class="plot-wrap"><svg id="plot" role="img" aria-label="当前实验的函数图像"></svg></div>
+      <div id="legend" class="legend"></div>
+      <div id="controls" class="controls"></div>
+      <p id="result" class="result" aria-live="polite"></p>
+      <div class="question"><span>想一想</span><p id="question"></p><details><summary>展开解释</summary><p id="explanation"></p></details></div>
+    </section>
+  </div>
+  <p class="math-note">图形帮助发现规律，解析式帮助说明原因。图中仅展示有限范围；教材章节顺序可能有所不同。滑块也支持键盘方向键。</p>
+  <noscript><p>请启用 JavaScript，以操作这些数学实验。</p></noscript>
+</LabsLayout>
+<script>
+  import '../../../scripts/math-lab.js';
+</script>
+<style>
+  .math-intro { padding: 44px 0 30px; } .eyebrow { margin: 0 0 10px; color: #536f99; font-size: 11px; letter-spacing: 1.6px; font-weight: 600; }
+  h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); letter-spacing: -1px; } h1 span { color: #507ae6; } .math-intro>p:last-child,.math-note { color: #637087; }
+  .math-shell { display: grid; grid-template-columns: 212px minmax(0, 1fr); gap: 24px; align-items: start; }
+  aside { padding: 18px 10px; background: #ffffffa6; border: 1px solid #fff; border-radius: 16px; } aside h2 { margin: 0 12px 14px; font-size: 14px; } aside h2 span { color: #637087; margin-left: 10px; font-weight: 400; }
+  .experiment { min-width: 0; padding: 26px; border-radius: 18px; border: 1px solid #fff; background: #fffffff0; box-shadow: 0 10px 30px #304b7009; }
+  .experiment-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; } .experiment-header h2 { margin: 0; font-size: 24px; } #experiment-description { color: #637087; margin: 12px 0 16px; }
+  button { font: inherit; cursor: pointer; } #reset { border: 1px solid #dce6fa; border-radius: 8px; padding: 8px 12px; background: #eef3fd; color: #285bb9; white-space: nowrap; font-size: 12px; }
+  .formula { background: #f3f6fc; border-radius: 10px; padding: 12px 16px; font-size: 17px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .plot-wrap { margin-top: 12px; width: 100%; } #plot { display: block; width: 100%; touch-action: pan-y; } .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 16px; font-size: 12px; color: #526078; }
+  .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; } .result { color: #285bb9; background: #eff5ff; border-radius: 10px; padding: 12px 16px; font-size: 14px; overflow-wrap: anywhere; }
+  .question { border-top: 1px solid #e6ebf3; padding-top: 16px; } .question>span { font-size: 12px; font-weight: 600; color: #64738b; } .question p { margin: 6px 0 12px; } summary { cursor: pointer; color: #285bb9; font-size: 13px; } details p { color: #637087; font-size: 14px; } .math-note { margin-top: 24px; font-size: 12px; }
+  @media(max-width: 800px) { .math-shell { grid-template-columns: 1fr; gap: 16px; } aside { padding: 14px; } aside h2 { margin-left: 0; } #experiment-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px; } }
+  @media(max-width: 500px) { .experiment { padding: 16px; } .experiment-header h2 { font-size: 20px; } .controls { grid-template-columns: 1fr; } .formula { font-size: 15px; } .math-intro { padding-top: 28px; } }
+</style>
+<style is:global>
+  #math-lab button:focus-visible,#math-lab input:focus-visible,#math-lab select:focus-visible,#math-lab summary:focus-visible { outline: 3px solid #507ae6; outline-offset: 3px; }
+  #experiment-list button { display: block; width: 100%; text-align: left; padding: 11px 12px; border: 0; border-radius: 8px; background: transparent; color: #546078; font: inherit; font-size: 13px; cursor: pointer; }
+  #experiment-list button:hover { background: #f1f5fb; } #experiment-list button[aria-current="true"] { background: #eaf1ff; color: #245bca; font-weight: 600; }
+  #experiment-list .number { display: inline-block; width: 25px; color: #7a8ca6; font-size: 11px; }
+  #controls label { display: block; min-width: 0; font-size: 13px; color: #526078; } #controls .control-title { display: flex; justify-content: space-between; gap: 10px; } #controls output { color: #243046; font-variant-numeric: tabular-nums; } #controls input[type="range"] { display: block; width: 100%; height: 28px; accent-color: #507ae6; cursor: pointer; } #controls select { width: 100%; margin-top: 6px; padding: 9px; border: 1px solid #ccd8ea; border-radius: 7px; background: white; color: #243046; font: inherit; }
+  #legend span { display: inline-flex; align-items: center; gap: 6px; } #legend i { width: 18px; height: 3px; display: inline-block; }
+</style>
