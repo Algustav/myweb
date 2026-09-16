@@ -46,10 +46,16 @@ test('后台的时刻和碎片只要求填写正文', async () => {
   }
 
   for (const name of ['blog', 'readlater']) {
-    const visibleFields = collections[name].fields
+    const collection = collections[name];
+    const visibleFields = collection.fields
       .filter((field) => field.widget !== 'hidden')
       .map((field) => field.name);
     assert.deepEqual(visibleFields, ['title', 'description', 'pubDate', 'tags', 'body']);
+    const pubDate = collection.fields.find((field) => field.name === 'pubDate');
+    assert.equal(pubDate.widget, 'datetime');
+    assert.equal(pubDate.default, '{{now}}');
+    assert.equal(pubDate.format, 'YYYY-MM-DDTHH:mm:ssZ');
+    assert.equal(collection.slug, '{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}-{{slug}}');
   }
 });
 

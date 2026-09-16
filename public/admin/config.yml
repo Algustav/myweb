@@ -22,7 +22,7 @@ collections:
     create: true
     extension: md
     format: frontmatter
-    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    slug: "{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}-{{slug}}"
     preview_path: "labs/{{slug}}"
     summary: "{{title}}"
     sortable_fields: [order, pubDate, title]
@@ -57,7 +57,7 @@ collections:
       - { label: 内容类型, name: kind, widget: hidden, default: blog }
       - { label: 标题, name: title, widget: string }
       - { label: 摘要, name: description, widget: text }
-      - { label: 发布日期, name: pubDate, widget: date, format: YYYY-MM-DD }
+      - { label: 发布时间, name: pubDate, widget: datetime, default: "{{now}}", format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false }
       - label: 标签
         name: tags
         widget: list
@@ -91,14 +91,14 @@ collections:
     filter: { field: kind, value: readlater }
     extension: md
     format: frontmatter
-    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    slug: "{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}-{{slug}}"
     preview_path: "blog/{{slug}}"
     summary: "{{title}} - {{pubDate}}"
     fields:
       - { label: 内容类型, name: kind, widget: hidden, default: readlater }
       - { label: 标题, name: title, widget: string }
       - { label: 摘要, name: description, widget: text }
-      - { label: 发布日期, name: pubDate, widget: date, format: YYYY-MM-DD }
+      - { label: 发布时间, name: pubDate, widget: datetime, default: "{{now}}", format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false }
       - label: 标签
         name: tags
         widget: list
