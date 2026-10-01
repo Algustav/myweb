@@ -4,7 +4,7 @@ tags: [labs]
 title: MyZoomIt
 description: 给演讲者、演示者的轻巧屏幕标注工具。基于 Windows Ink，支持触控笔、触摸和鼠标，快捷键驱动，免费便携，程序不到 0.6 MB。
 cover: /uploads/labs-myzoomit.svg
-projectUrl: https://github.com/Algustav/myZoomit/releases/download/v1.7/MyZoomIt-v1.7-win-x64.zip
+projectUrl: https://github.com/Algustav/myZoomit/releases/download/v1.8/MyZoomIt-v1.8-win-x64.zip
 pubDate: 2026-10-01
 order: 0
 ---
@@ -15,7 +15,7 @@ MyZoomIt 是我一直使用的 [ZoomIt](https://learn.microsoft.com/zh-cn/sysint
 
 我把绘图改为使用 **Windows Ink 原生控件**，追求更流畅的笔画和更好的系统兼容性，体验可以参考 Office 中的绘图工具。
 
-**[下载便携版](https://github.com/Algustav/myZoomit/releases/download/v1.7/MyZoomIt-v1.7-win-x64.zip)** · [GitHub 项目与源码](https://github.com/Algustav/myZoomit)
+**[下载便携版](https://github.com/Algustav/myZoomit/releases/download/v1.8/MyZoomIt-v1.8-win-x64.zip)** · [GitHub 项目与源码](https://github.com/Algustav/myZoomit)
 
 适用 **Windows 11 x64**。配置随程序文件夹携带，免费使用，无需注册。展厅里的“打开体验”按钮也会直接下载便携版。
 
