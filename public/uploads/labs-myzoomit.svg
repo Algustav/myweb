@@ -10,7 +10,7 @@
     <path d="M112 366 Q365 347 654 365" stroke="url(#ink)" stroke-width="9" stroke-linecap="round" fill="none"/>
     <text x="110" y="445" fill="#b7c8de" font-size="33">给演示者的一支屏幕画笔</text>
     <text x="110" y="588" fill="#8fa9c7" font-size="23">触控笔 · 触摸 · 鼠标</text>
-    <text x="1170" y="588" text-anchor="end" fill="#a4caff" font-size="23">v1.6 / 免费便携</text>
+    <text x="1170" y="588" text-anchor="end" fill="#a4caff" font-size="23">免费开源 / 便携</text>
   </g>
   <g fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M841 261 C962 163 1100 200 1062 290 C1024 380 871 389 852 323 C833 257 1101 309 1114 402" stroke="#7dd3fc" stroke-width="10"/>
