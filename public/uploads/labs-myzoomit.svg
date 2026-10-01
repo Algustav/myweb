@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">MyZoomIt 屏幕标注工具</title>
+  <desc id="desc">深蓝背景上的 MyZoomIt 标题与彩色标注线条，Windows Ink，轻巧便携。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#14283f"/><stop offset="1" stop-color="#101722"/></linearGradient><linearGradient id="ink" x2="1" y2="0"><stop stop-color="#7dd3fc"/><stop offset="1" stop-color="#a5b4fc"/></linearGradient></defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1160" height="600" rx="28" fill="#ffffff" fill-opacity=".025" stroke="#ffffff" stroke-opacity=".12"/>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <text x="110" y="166" fill="#9aacc4" font-size="22" letter-spacing="5">AL'S LABS / WINDOWS INK</text>
+    <text x="104" y="336" fill="#eef5ff" font-size="112" font-weight="650" letter-spacing="-4">MyZoomIt</text>
+    <path d="M112 366 Q365 347 654 365" stroke="url(#ink)" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <text x="110" y="445" fill="#b7c8de" font-size="33">给演示者的一支屏幕画笔</text>
+    <text x="110" y="588" fill="#8fa9c7" font-size="23">触控笔 · 触摸 · 鼠标</text>
+    <text x="1170" y="588" text-anchor="end" fill="#a4caff" font-size="23">v1.6 / 免费便携</text>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M841 261 C962 163 1100 200 1062 290 C1024 380 871 389 852 323 C833 257 1101 309 1114 402" stroke="#7dd3fc" stroke-width="10"/>
+    <path d="m1082 384 33 25 15-40" stroke="#7dd3fc" stroke-width="8"/>
+    <path d="m892 447 27 27 60-69" stroke="#8fdfb1" stroke-width="9"/>
+  </g>
+</svg>
