@@ -26,11 +26,9 @@ MyZoomIt 是我一直使用的 [ZoomIt](https://learn.microsoft.com/zh-cn/sysint
   你的浏览器不支持视频播放，可<a href="/uploads/myzoomit-demo.mp4">下载介绍动画</a>观看。
 </video>
 
+![](public/uploads/myzoomit​demo​.png)
 
-
-![](/uploads/myzoomit​demo​.png)
-
-![](/uploads/myzoomitoption.jpg)
+![](public/uploads/myzoomitoption.jpg)
 
 ## 主要特点
 
