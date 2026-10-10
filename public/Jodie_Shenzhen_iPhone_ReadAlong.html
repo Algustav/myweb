@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Jodie · My City, Shenzhen | 英文跟读</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"PingFang SC","Microsoft YaHei",sans-serif;color:#fff;background:#09172a;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:#09172a}
+main{min-height:100dvh;display:flex;flex-direction:column;background:linear-gradient(145deg,#102947 0%,#0b172b 70%)}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px max(18px,4vw);color:#bcd6ef;font-size:clamp(13px,1.2vw,17px);letter-spacing:.07em}
+header strong{color:#f8fafc;letter-spacing:.1em}header span{font-variant-numeric:tabular-nums}
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px max(20px,5vw);min-height:310px}
+.en{max-width:1150px;font-size:clamp(32px,4.8vw,74px);line-height:1.33;font-weight:800;letter-spacing:-.025em;text-wrap:balance}
+.zh{font-size:clamp(24px,3vw,44px);line-height:1.5;color:#d3e3f5;margin-top:clamp(22px,3.5vh,44px);font-weight:600;text-wrap:balance}
+.progress{height:5px;background:#344963;margin:0 max(22px,4vw);border-radius:8px;overflow:hidden}.progress>div{height:100%;width:0;background:#a9d6ff;transition:width .25s}
+footer{padding:16px max(14px,4vw) max(18px,env(safe-area-inset-bottom));background:#0a182a;border-top:1px solid #263e58;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+button,select{font:inherit;border:1px solid #4d698b;background:#1c3855;color:#fff;border-radius:12px;padding:12px 18px;cursor:pointer}
+button:disabled{opacity:.45;cursor:default}button.primary{background:#f4f8fc;color:#12304d;font-weight:800;border-color:#f4f8fc;min-width:96px}
+.settings{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#bcd6ef;font-size:14px}.settings select{max-width:250px;padding:10px;font-size:14px}.settings input{accent-color:#9dccff;width:92px}
+.small{font-size:12px;color:#92aeca;padding:0 4vw 12px;background:#0a182a} .tips{padding:12px 4vw;color:#bdd2e8;font-size:13px;background:#0a182a}
+@media(max-width:600px){footer{justify-content:center}.settings{justify-content:center}header{padding-top:12px}.stage{min-height:50vh}.en{font-size:clamp(28px,7.5vw,45px)}}
+@media(max-height:550px) and (orientation:landscape){header{padding:8px 3vw}.stage{padding:4px 4vw;min-height:0}.en{font-size:clamp(26px,4.4vw,55px)}.zh{font-size:clamp(19px,2.8vw,34px);margin-top:12px}footer{padding:8px 3vw}.tips,.small{display:none}.controls button{padding:8px 13px}.settings select{padding:7px}}
+</style></head><body>
+<main>
+<header><strong>MY CITY, SHENZHEN</strong><span id="count">01 / 17</span></header>
+<section class="stage" aria-live="polite"><div class="en" id="en">Hello, everyone!</div><div class="zh" id="zh">大家好！</div></section>
+<div class="progress"><div id="bar"></div></div>
+<footer>
+<div class="controls"><button id="back" aria-label="上一句">◀ 上一句</button><button id="play" class="primary">▶ 开始跟读</button><button id="next">下一句 ▶</button><button id="again">重读本句</button></div>
+<div class="settings"><label for="voice">英语音色</label><select id="voice" aria-label="英语音色"><option>读取系统音色中…</option></select><label for="rate">语速</label><input type="range" id="rate" min="0.8" max="1.15" step="0.05" value="1"><span id="rateLabel">1.00×</span></div>
+</footer>
+<div class="tips">点击“开始跟读”，手机将使用设备自带英语语音朗读，并随声音逐句切换中英文字幕。可更换音色、调整语速或单句重读。</div>
+<div class="small">单文件离线页面 · 无需联网 · 请在支持语音合成的 Safari / Chrome 中打开；实际音色由设备决定。</div>
+</main>
+<script>
+const data=[{"en":"Hello, everyone!","zh":"大家好！","say":"Hello, everyone!"},{"en":"I'm Jodie from Class 407, Chunlei Primary School.","zh":"我是春蕾小学407班的Jodie。","say":"I'm Jodie from Class four oh seven, Chunlei Primary School."},{"en":"Today, I am at Shenzhen Civic Center.","zh":"今天，我来到了深圳市民中心。","say":"Today, I am at Shenzhen Civic Center."},{"en":"Look behind me!","zh":"看看我的身后！","say":"Look behind me!"},{"en":"Can you see a big bird?","zh":"你能看到一只大鸟吗？","say":"Can you see a big bird?"},{"en":"No! It's not a real bird!","zh":"不！它不是真的鸟！","say":"No! It's not a real bird!"},{"en":"It is the roof of this building.","zh":"它其实是这座建筑的屋顶。","say":"It is the roof of this building."},{"en":"The blue roof looks like a bird with big wings.","zh":"蓝色的屋顶看起来像一只张开大翅膀的鸟。","say":"The blue roof looks like a bird with big wings."},{"en":"Isn't it cool?","zh":"是不是很酷？","say":"Isn't it cool?"},{"en":"This is a famous place in Shenzhen.","zh":"这是深圳一个著名的地方。","say":"This is a famous place in Shenzhen."},{"en":"This November, APEC is coming to Shenzhen!","zh":"今年11月，APEC会议将在深圳举行！","say":"This November, A-pec is coming to Shenzhen!"},{"en":"Many people will visit our city.","zh":"许多人将来到我们的城市。","say":"Many people will visit our city."},{"en":"I hope they will like Shenzhen!","zh":"我希望他们会喜欢深圳！","say":"I hope they will like Shenzhen!"},{"en":"I love Shenzhen.","zh":"我爱深圳。","say":"I love Shenzhen."},{"en":"It is a beautiful city, full of dreams.","zh":"这是一座美丽而充满梦想的城市。","say":"It is a beautiful city, full of dreams."},{"en":"Welcome to Shenzhen!","zh":"欢迎来到深圳！","say":"Welcome to Shenzhen!"},{"en":"Thank you!","zh":"谢谢大家！","say":"Thank you!"}];
+let idx=0,playing=false,paused=false,voices=[],advanceTimer=null,runID=0,currentUtterance=null,pendingAdvance=false;
+const $=id=>document.getElementById(id);
+const synth='speechSynthesis' in window ? window.speechSynthesis : null;
+function show(){const item=data[idx];$('en').textContent=item.en;$('zh').textContent=item.zh;$('count').textContent=String(idx+1).padStart(2,'0')+' / '+String(data.length).padStart(2,'0');$('bar').style.width=((idx+1)/data.length*100)+'%';$('back').disabled=idx===0;$('next').disabled=idx===data.length-1;}
+function loadVoices(){if(!synth)return;voices=synth.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith('en'));const vsel=$('voice');const old=vsel.value;vsel.textContent='';if(!voices.length){const o=document.createElement('option');o.textContent='系统默认英语语音';o.value='';vsel.appendChild(o);return;}
+voices.sort((a,b)=>((a.lang==='en-US'?0:1)-(b.lang==='en-US'?0:1)) || a.name.localeCompare(b.name));
+for(const v of voices){const o=document.createElement('option');o.value=v.voiceURI;o.textContent=v.name+' · '+v.lang+(v.localService?' · 本地':'');vsel.appendChild(o);}
+const choose=voices.find(v=>v.voiceURI===old)||voices.find(v=>/samantha|ava|allison|jenny|aria|karen|moira|zoe|serena/i.test(v.name))||voices.find(v=>v.lang==='en-US'&&v.localService)||voices[0];vsel.value=choose.voiceURI;}
+function cancel(){runID++;if(advanceTimer){clearTimeout(advanceTimer);advanceTimer=null;}if(synth){synth.cancel();}currentUtterance=null;pendingAdvance=false;playing=false;paused=false;$('play').textContent='▶ 开始跟读';}
+function advance(){advanceTimer=null;if(paused){pendingAdvance=true;return;}pendingAdvance=false;if(idx===data.length-1){cancel();return;}idx++;speak();}
+function speak(){if(!synth){alert('当前浏览器不支持语音朗读，请使用 Safari 或 Chrome 打开此文件。');return;}
+let current=runID;show();let item=data[idx],u=new SpeechSynthesisUtterance(item.say);currentUtterance=u;let v=voices.find(v=>v.voiceURI===$('voice').value);if(v)u.voice=v;u.lang=v?.lang||'en-US';u.rate=Number($('rate').value);u.pitch=1.02;u.volume=1.0;
+u.onstart=()=>{if(current!==runID)return;playing=true;$('play').textContent=paused?'▶ 继续':'Ⅱ 暂停';};
+u.onend=()=>{if(current!==runID)return;advanceTimer=setTimeout(()=>{if(current!==runID)return;advance();},460);};
+u.onerror=(e)=>{if(current!==runID)return;if(e.error==='canceled'||e.error==='interrupted')return;cancel();$('play').textContent='▶ 重试';};
+synth.speak(u);}
+function startAt(i){cancel();idx=Math.max(0,Math.min(data.length-1,i));show();if(synth)synth.resume();playing=true;speak();}
+$('play').addEventListener('click',()=>{if(!synth){speak();return;}if(playing&&!paused){paused=true;synth.pause();$('play').textContent='▶ 继续';}else if(playing&&paused){paused=false;synth.resume();$('play').textContent='Ⅱ 暂停';if(pendingAdvance)advance();}else{startAt(idx===data.length-1?0:idx);}});
+$('again').addEventListener('click',()=>startAt(idx));$('back').addEventListener('click',()=>startAt(idx-1));$('next').addEventListener('click',()=>startAt(idx+1));
+$('rate').addEventListener('input',e=>{$('rateLabel').textContent=Number(e.target.value).toFixed(2)+'×';});
+$('voice').addEventListener('change',()=>{if(playing)startAt(idx);});
+if(synth){loadVoices();if('onvoiceschanged' in synth)synth.addEventListener('voiceschanged',loadVoices);setTimeout(loadVoices,500);}else{$('voice').innerHTML='<option>浏览器不支持系统语音</option>';}
+show();
+</script></body></html>
